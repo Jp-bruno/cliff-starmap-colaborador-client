@@ -14,6 +14,8 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthProjetosImport } from './routes/_auth/projetos'
+import { Route as AuthAdminUsuariosImport } from './routes/_auth/admin/usuarios'
+import { Route as AuthAdminProjetosImport } from './routes/_auth/admin/projetos'
 import { Route as AuthProjetoSlugImport } from './routes/_auth/_projeto.$slug'
 import { Route as AuthProjetoSlugVisaoGeralImport } from './routes/_auth/_projeto/$slug/visao-geral'
 import { Route as AuthProjetoSlugHomeImport } from './routes/_auth/_projeto/$slug/home'
@@ -41,6 +43,18 @@ const IndexRoute = IndexImport.update({
 const AuthProjetosRoute = AuthProjetosImport.update({
   id: '/projetos',
   path: '/projetos',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthAdminUsuariosRoute = AuthAdminUsuariosImport.update({
+  id: '/admin/usuarios',
+  path: '/admin/usuarios',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthAdminProjetosRoute = AuthAdminProjetosImport.update({
+  id: '/admin/projetos',
+  path: '/admin/projetos',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -140,6 +154,20 @@ declare module '@tanstack/react-router' {
       path: '/$slug'
       fullPath: '/$slug'
       preLoaderRoute: typeof AuthProjetoSlugImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/admin/projetos': {
+      id: '/_auth/admin/projetos'
+      path: '/admin/projetos'
+      fullPath: '/admin/projetos'
+      preLoaderRoute: typeof AuthAdminProjetosImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/admin/usuarios': {
+      id: '/_auth/admin/usuarios'
+      path: '/admin/usuarios'
+      fullPath: '/admin/usuarios'
+      preLoaderRoute: typeof AuthAdminUsuariosImport
       parentRoute: typeof AuthImport
     }
     '/_auth/_projeto/$slug/agenda': {
@@ -243,11 +271,15 @@ const AuthProjetoSlugRouteWithChildren = AuthProjetoSlugRoute._addFileChildren(
 interface AuthRouteChildren {
   AuthProjetosRoute: typeof AuthProjetosRoute
   AuthProjetoSlugRoute: typeof AuthProjetoSlugRouteWithChildren
+  AuthAdminProjetosRoute: typeof AuthAdminProjetosRoute
+  AuthAdminUsuariosRoute: typeof AuthAdminUsuariosRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthProjetosRoute: AuthProjetosRoute,
   AuthProjetoSlugRoute: AuthProjetoSlugRouteWithChildren,
+  AuthAdminProjetosRoute: AuthAdminProjetosRoute,
+  AuthAdminUsuariosRoute: AuthAdminUsuariosRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
@@ -257,6 +289,8 @@ export interface FileRoutesByFullPath {
   '': typeof AuthRouteWithChildren
   '/projetos': typeof AuthProjetosRoute
   '/$slug': typeof AuthProjetoSlugRouteWithChildren
+  '/admin/projetos': typeof AuthAdminProjetosRoute
+  '/admin/usuarios': typeof AuthAdminUsuariosRoute
   '/$slug/agenda': typeof AuthProjetoSlugAgendaRoute
   '/$slug/atualizacoes': typeof AuthProjetoSlugAtualizacoesRoute
   '/$slug/configuracoes': typeof AuthProjetoSlugConfiguracoesRoute
@@ -273,6 +307,8 @@ export interface FileRoutesByTo {
   '': typeof AuthRouteWithChildren
   '/projetos': typeof AuthProjetosRoute
   '/$slug': typeof AuthProjetoSlugRouteWithChildren
+  '/admin/projetos': typeof AuthAdminProjetosRoute
+  '/admin/usuarios': typeof AuthAdminUsuariosRoute
   '/$slug/agenda': typeof AuthProjetoSlugAgendaRoute
   '/$slug/atualizacoes': typeof AuthProjetoSlugAtualizacoesRoute
   '/$slug/configuracoes': typeof AuthProjetoSlugConfiguracoesRoute
@@ -290,6 +326,8 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/_auth/projetos': typeof AuthProjetosRoute
   '/_auth/_projeto/$slug': typeof AuthProjetoSlugRouteWithChildren
+  '/_auth/admin/projetos': typeof AuthAdminProjetosRoute
+  '/_auth/admin/usuarios': typeof AuthAdminUsuariosRoute
   '/_auth/_projeto/$slug/agenda': typeof AuthProjetoSlugAgendaRoute
   '/_auth/_projeto/$slug/atualizacoes': typeof AuthProjetoSlugAtualizacoesRoute
   '/_auth/_projeto/$slug/configuracoes': typeof AuthProjetoSlugConfiguracoesRoute
@@ -308,6 +346,8 @@ export interface FileRouteTypes {
     | ''
     | '/projetos'
     | '/$slug'
+    | '/admin/projetos'
+    | '/admin/usuarios'
     | '/$slug/agenda'
     | '/$slug/atualizacoes'
     | '/$slug/configuracoes'
@@ -323,6 +363,8 @@ export interface FileRouteTypes {
     | ''
     | '/projetos'
     | '/$slug'
+    | '/admin/projetos'
+    | '/admin/usuarios'
     | '/$slug/agenda'
     | '/$slug/atualizacoes'
     | '/$slug/configuracoes'
@@ -338,6 +380,8 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/_auth/projetos'
     | '/_auth/_projeto/$slug'
+    | '/_auth/admin/projetos'
+    | '/_auth/admin/usuarios'
     | '/_auth/_projeto/$slug/agenda'
     | '/_auth/_projeto/$slug/atualizacoes'
     | '/_auth/_projeto/$slug/configuracoes'
@@ -381,7 +425,9 @@ export const routeTree = rootRoute
       "filePath": "_auth.tsx",
       "children": [
         "/_auth/projetos",
-        "/_auth/_projeto/$slug"
+        "/_auth/_projeto/$slug",
+        "/_auth/admin/projetos",
+        "/_auth/admin/usuarios"
       ]
     },
     "/_auth/projetos": {
@@ -402,6 +448,14 @@ export const routeTree = rootRoute
         "/_auth/_projeto/$slug/documentos/$folderSlug/",
         "/_auth/_projeto/$slug/financeiro/$folderSlug/"
       ]
+    },
+    "/_auth/admin/projetos": {
+      "filePath": "_auth/admin/projetos.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/admin/usuarios": {
+      "filePath": "_auth/admin/usuarios.tsx",
+      "parent": "/_auth"
     },
     "/_auth/_projeto/$slug/agenda": {
       "filePath": "_auth/_projeto/$slug/agenda.tsx",

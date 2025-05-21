@@ -55,7 +55,7 @@ export default function OrionAppBar({ open }: { open: boolean }) {
             <Toolbar sx={{ display: "grid", gridTemplateColumns: "70% 30%", backgroundColor: "white", color: "black" }}>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Typography variant="h6" noWrap component="div">
-                        Bem-vindo!
+                        {projeto!.nome}
                     </Typography>
                 </Box>
 

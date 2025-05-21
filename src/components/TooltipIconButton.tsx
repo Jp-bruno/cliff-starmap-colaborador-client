@@ -8,7 +8,7 @@ export default function TooltipIconButton({
     loading,
 }: {
     title: string;
-    action: () => void;
+    action: (() => void) | ((event: React.MouseEvent<HTMLButtonElement>) => void);
     icon: ReactNode;
     loading?: boolean;
 }) {

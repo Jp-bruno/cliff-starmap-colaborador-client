@@ -22,8 +22,8 @@ function RouteComponent() {
                 <Divider />
 
                 <List>
-                    {faseSelecionada!.atualizacoes.length === 0 && <ListSubheader sx={{ textAlign: "center" }}>Sem atualizações</ListSubheader>}
-                    {faseSelecionada!.atualizacoes.map((atualizacao: AtualizacaoType) => (
+                    {faseSelecionada?.atualizacoes.length === 0 && <ListSubheader sx={{ textAlign: "center" }}>Sem atualizações</ListSubheader>}
+                    {faseSelecionada?.atualizacoes.map((atualizacao: AtualizacaoType) => (
                         <ListItem>
                             <ListItemText>
                                 {atualizacao.data} {atualizacao.descricao}

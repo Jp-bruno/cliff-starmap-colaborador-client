@@ -2,7 +2,8 @@ import { Box, Button, LinearProgress, Stack, TextField } from "@mui/material";
 import BaseModal from "./BaseModal";
 import { useState, type FormEvent } from "react";
 import axiosBase from "@/axios/axios";
-import { useQueryClient } from "@tanstack/react-query";
+import { queryClient } from "@/main";
+import { useProjetoContext } from "@/contexts/projectContext";
 
 export default function AddFaseModal({ isOpen, close }: { isOpen: boolean; close: () => void }) {
     const [formData, setFormData] = useState<{ nome: string; descricao: string; banner: { nome: string; tipo: string } | null }>({
@@ -13,7 +14,7 @@ export default function AddFaseModal({ isOpen, close }: { isOpen: boolean; close
 
     const [waitingRequest, setWaitingRequest] = useState(false);
 
-    const queryClient = useQueryClient();
+    const { projeto } = useProjetoContext();
 
     function handleClose() {
         setFormData({ nome: "", descricao: "", banner: null });
@@ -27,7 +28,7 @@ export default function AddFaseModal({ isOpen, close }: { isOpen: boolean; close
         setWaitingRequest(true);
 
         await axiosBase
-            .post("/fase", formData)
+            .post("/fase", { ...formData, projeto: projeto!._id })
             .then(async () => {
                 //TODO: dar feedback do request (sucesso, falha, etc)
                 await queryClient.invalidateQueries({ queryKey: ["projeto"] });

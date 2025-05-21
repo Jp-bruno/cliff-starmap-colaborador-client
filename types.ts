@@ -62,6 +62,18 @@ export type ColaboradorType = {
     descricao: string;
 };
 
+export type ClienteType = {
+    _id: string;
+    nome: string;
+    sobrenome: string;
+    email: string;
+    telefone: string;
+    imagem: string;
+    projetos: ProjetoType[];
+    atividades: string[];
+    descricao: string;
+};
+
 export type EventoType = {
     _id: string;
     titulo: string;

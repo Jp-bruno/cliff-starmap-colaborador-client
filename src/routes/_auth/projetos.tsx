@@ -22,20 +22,7 @@ function RouteComponent() {
 
     return (
         <>
-            <AppBar position="fixed" elevation={1}>
-                <Toolbar sx={{ display: "grid", gridTemplateColumns: "70% 30%", backgroundColor: "white", color: "black" }}>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Typography variant="h6" noWrap component="div">
-                            Bem-vindo!
-                        </Typography>
-                    </Box>
 
-                    <Stack direction="row" alignItems={"center"} spacing={2} sx={{ display: "flex", justifyContent: "flex-end" }}>
-                        <Typography>User</Typography>
-                        <img src="/profileDefault.png" alt="User" width="30" />
-                    </Stack>
-                </Toolbar>
-            </AppBar>
 
             <Box sx={{ ...theme.mixins.toolbar }}></Box>
 
