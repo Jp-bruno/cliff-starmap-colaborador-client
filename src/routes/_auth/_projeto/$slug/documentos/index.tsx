@@ -9,7 +9,7 @@ import { useProjetoContext } from "@/contexts/projectContext";
 import type { PastaType } from "types";
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 
-export const Route = createFileRoute("/_auth/documentos/")({
+export const Route = createFileRoute("/_auth/_projeto/$slug/documentos/")({
     component: Documentos,
 });
 

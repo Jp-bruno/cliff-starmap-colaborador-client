@@ -10,7 +10,7 @@ import { useState } from "react";
 import type { ItemAgendaType } from "types";
 import ItemAgendaListItem from "@/components/Agenda/ItemAgendaListItem";
 
-export const Route = createFileRoute("/_auth/agenda")({
+export const Route = createFileRoute("/_auth/_projeto/$slug/agenda")({
     component: RouteComponent,
     beforeLoad(ctx) {
         return ctx;
@@ -25,6 +25,9 @@ function RouteComponent() {
     const { data: itensAgenda, isLoading } = useQuery({
         queryKey: [`fase-${faseSelecionada?._id}-agenda`],
         queryFn: async () => {
+            if (!faseSelecionada) {
+                return [];
+            }
             return await axiosBase(`/itemAgenda/${faseSelecionada?._id}`).then((res) => res.data);
         },
     });

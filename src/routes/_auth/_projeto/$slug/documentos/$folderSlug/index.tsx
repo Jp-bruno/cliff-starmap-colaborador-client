@@ -11,7 +11,7 @@ import { useState } from "react";
 import type { ArquivoType } from "types";
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
-export const Route = createFileRoute("/_auth/documentos/$folderSlug/")({
+export const Route = createFileRoute("/_auth/_projeto/$slug/documentos/$folderSlug/")({
     component: RouteComponent,
     validateSearch: ({ folderId }: { folderId: string }): { folderId: string } => {
         return { folderId };
@@ -19,9 +19,9 @@ export const Route = createFileRoute("/_auth/documentos/$folderSlug/")({
 });
 
 function RouteComponent() {
-    const { folderSlug } = useParams({ from: "/_auth/documentos/$folderSlug/" });
+    const { folderSlug } = useParams({ from: "/_auth/_projeto/$slug/documentos/$folderSlug/" });
 
-    const { folderId } = useSearch({ from: "/_auth/documentos/$folderSlug/" });
+    const { folderId } = useSearch({ from: "/_auth/_projeto/$slug/documentos/$folderSlug/" });
 
     const [addFileModalState, setAddFileModalState] = useState(false);
 

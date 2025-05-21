@@ -26,6 +26,7 @@ export default function ItemAgendaListItem({ itemAgenda }: { itemAgenda: ItemAge
     async function handleDeleteItemAgenda() {
         await axiosBase.delete(`/itemAgenda/${itemAgenda._id}`).then(async () => {
             await queryClient.invalidateQueries({ queryKey: [`fase-${itemAgenda.fase}-agenda`] });
+            await queryClient.invalidateQueries({ queryKey: [`projeto`] });
         });
     }
 

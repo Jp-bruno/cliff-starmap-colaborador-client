@@ -44,6 +44,7 @@ export default function EditItemAgendaModal({ itemAgenda, close }: { itemAgenda:
             .then(async () => {
                 //TODO: dar feedback do request (sucesso, falha, etc)
                 await queryClient.invalidateQueries({ queryKey: [`fase-${itemAgenda!.fase}-agenda`] });
+                await queryClient.invalidateQueries({ queryKey: [`projeto`] });
             })
             .finally(() => handleClose());
     }

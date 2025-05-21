@@ -2,7 +2,7 @@ import HorizontalNavigation from "@/components/HorizontalNavigation/HorizontalNa
 import { Container } from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_auth/visao-geral")({
+export const Route = createFileRoute("/_auth/_projeto/$slug/visao-geral")({
     component: RouteComponent,
 });
 

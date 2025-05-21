@@ -48,7 +48,7 @@ const AppBar = styled(MuiAppBar, {
 export default function OrionAppBar({ open }: { open: boolean }) {
     const [addFaseModalState, setAddFaseModalState] = useState(false);
 
-    const { projeto, isLoading, handleSetFaseSelecionada, faseSelecionada } = useProjetoContext();
+    const { projeto, handleSetFaseSelecionada, faseSelecionada } = useProjetoContext();
 
     return (
         <AppBar position="fixed" open={open} elevation={1}>
@@ -61,10 +61,10 @@ export default function OrionAppBar({ open }: { open: boolean }) {
 
                 <Box sx={{ width: "100%", display: "grid", gridTemplateColumns: "auto auto" }}>
                     <Box sx={{ display: "flex", columnGap: 1 }}>
-                        {!isLoading && projeto.fases.length > 0 && faseSelecionada && (
+                        {projeto?.fases.length! > 0 && faseSelecionada && (
                             <>
                                 <Select value={faseSelecionada?._id} onChange={(ev) => handleSetFaseSelecionada(ev.target.value)} size="small">
-                                    {projeto.fases.map((fase: FaseType) => (
+                                    {projeto?.fases.map((fase: FaseType) => (
                                         <MenuItem value={fase?._id} key={fase.nome}>
                                             {fase.nome}
                                         </MenuItem>
@@ -75,7 +75,7 @@ export default function OrionAppBar({ open }: { open: boolean }) {
                             </>
                         )}
 
-                        {!isLoading && projeto.fases.length === 0 && (
+                        {projeto?.fases.length === 0 && (
                             <>
                                 <Select value={"Sem fases disponíveis"} size="small">
                                     <MenuItem disabled value="Sem fases disponíveis">

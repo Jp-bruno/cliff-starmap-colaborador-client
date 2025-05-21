@@ -4,7 +4,7 @@ import { Box, Container, Divider, List, ListItem, ListItemText, ListSubheader, T
 import { createFileRoute } from "@tanstack/react-router";
 import type { AtualizacaoType } from "types";
 
-export const Route = createFileRoute("/_auth/atualizacoes")({
+export const Route = createFileRoute("/_auth/_projeto/$slug/atualizacoes")({
     component: RouteComponent,
 });
 

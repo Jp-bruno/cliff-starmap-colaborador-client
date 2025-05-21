@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import FaseListItem from "@/components/Configuracao/FaseListItem";
 import ContatosList from "@/components/Configuracao/ContatosList";
 
-export const Route = createFileRoute("/_auth/configuracoes")({
+export const Route = createFileRoute("/_auth/_projeto/$slug/configuracoes")({
     component: RouteComponent,
 });
 

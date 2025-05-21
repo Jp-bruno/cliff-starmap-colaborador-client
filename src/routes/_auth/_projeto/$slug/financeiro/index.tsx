@@ -12,7 +12,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import EditIcon from "@mui/icons-material/Edit";
 import UpdateDadosFinanceirosModal from "@/components/UpdateDadosFinanceirosModal";
 
-export const Route = createFileRoute("/_auth/financeiro/")({
+export const Route = createFileRoute("/_auth/_projeto/$slug/financeiro/")({
     component: Financeiro,
 });
 

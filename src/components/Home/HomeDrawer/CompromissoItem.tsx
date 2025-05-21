@@ -3,8 +3,6 @@ import { Box, Grid, Typography, useTheme } from "@mui/material";
 export default function CompromissoItem({ titulo, dia, mes }: { titulo: string; dia: string; mes: string }) {
     const theme = useTheme();
 
-    console.log({ titulo, dia, mes });
-
     return (
         <Grid
             size={6}

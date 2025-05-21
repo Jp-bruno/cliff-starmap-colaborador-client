@@ -32,10 +32,11 @@ export default function AddItemAgendaModal({ isOpen, close }: { isOpen: boolean;
         ev.preventDefault();
 
         await axiosBase
-            .post("/itemAgenda", { ...formData, fase: faseSelecionada._id, projeto: faseSelecionada.projeto })
+            .post("/itemAgenda", { ...formData, fase: faseSelecionada?._id, projeto: faseSelecionada?.projeto })
             .then(async () => {
                 //TODO: dar feedback do request (sucesso, falha, etc)
                 await queryClient.invalidateQueries({ queryKey: [`fase-${faseSelecionada?._id}-agenda`] });
+                await queryClient.invalidateQueries({ queryKey: [`projeto`] });
             })
             .finally(() => handleClose());
     }

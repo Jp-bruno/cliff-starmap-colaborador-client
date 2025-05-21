@@ -10,49 +10,45 @@ import UpdateIcon from "@mui/icons-material/Update";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { useProjetoContext } from "@/contexts/projectContext";
 
-export const Route = createFileRoute("/_auth/home")({
+export const Route = createFileRoute("/_auth/_projeto/$slug/home")({
     component: Home,
 });
 
 function Home() {
     const theme = useTheme();
 
-    const { isLoading, faseSelecionada } = useProjetoContext();
+    const { faseSelecionada, projeto } = useProjetoContext();
 
     const links = [
         {
             title: "Documentos",
             description: "Veja todos os arquivos relacionados ao seu projeto",
             icon: <DescriptionIcon />,
-            link: "/documentos",
+            link: `/${projeto?.slug}/documentos`,
             backgroundColor: theme.palette.primary[400],
         },
         {
             title: "Atualizações",
             description: "Acesse as últimas novidades!",
             icon: <UpdateIcon />,
-            link: "/atualizacoes",
+            link: `/${projeto?.slug}/atualizacoes`,
             backgroundColor: theme.palette.primary[600],
         },
         {
             title: "Financeiro",
             description: "Acompanhe aqui o demonstrativos e notas fiscais",
             icon: <PaidIcon />,
-            link: "/financeiro",
+            link: `/${projeto?.slug}/financeiro`,
             backgroundColor: theme.palette.primary[300],
         },
         {
             title: "Agenda",
             description: "Acesse o cronograma e os principais compromissos da agenda",
             icon: <CalendarMonthIcon />,
-            link: "/agenda",
+            link: `/${projeto?.slug}/agenda`,
             backgroundColor: theme.palette.primary[500],
         },
     ];
-
-    if (isLoading) {
-        return null;
-    }
 
     if (!faseSelecionada) {
         return (

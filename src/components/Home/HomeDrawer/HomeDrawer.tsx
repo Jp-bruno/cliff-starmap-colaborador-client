@@ -97,10 +97,10 @@ export default function HomeDrawer() {
 
     const { projeto } = useProjetoContext();
 
-    const proximosEventos = projeto.proximosEventos.map((evento) => {
+    const proximosEventos = projeto!.proximosEventos.map((evento) => {
         return {
             titulo: evento.titulo,
-            dia: new Date(evento.data).getDate().toString(),
+            dia: (new Date(evento.data).getDate() + 1).toString(),
             mes: new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(new Date(evento.data)),
         };
     });
@@ -156,10 +156,10 @@ export default function HomeDrawer() {
                 </Stack>
 
                 <Grid container spacing={2}>
-                    {projeto.contatos.map((contato: ColaboradorType) => (
+                    {projeto!.contatos.map((contato: ColaboradorType) => (
                         <ContatosItem key={contato.nome} {...contato} />
                     ))}
-                    {projeto.contatos.length === 0 && <Typography>Sem contatos adicionados</Typography>}
+                    {projeto!.contatos.length === 0 && <Typography>Sem contatos adicionados</Typography>}
                 </Grid>
             </Stack>
         </Stack>

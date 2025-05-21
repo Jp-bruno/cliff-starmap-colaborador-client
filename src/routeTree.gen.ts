@@ -13,17 +13,17 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
-import { Route as AuthVisaoGeralImport } from './routes/_auth/visao-geral'
 import { Route as AuthProjetosImport } from './routes/_auth/projetos'
-import { Route as AuthHomeImport } from './routes/_auth/home'
-import { Route as AuthConfiguracoesImport } from './routes/_auth/configuracoes'
-import { Route as AuthAtualizacoesImport } from './routes/_auth/atualizacoes'
-import { Route as AuthAgendaImport } from './routes/_auth/agenda'
-import { Route as AuthProjetoImport } from './routes/_auth/_projeto'
-import { Route as AuthFinanceiroIndexImport } from './routes/_auth/financeiro/index'
-import { Route as AuthDocumentosIndexImport } from './routes/_auth/documentos/index'
-import { Route as AuthProjetoSlugImport } from './routes/_auth/_projeto/$slug'
-import { Route as AuthDocumentosFolderSlugIndexImport } from './routes/_auth/documentos/$folderSlug/index'
+import { Route as AuthProjetoSlugImport } from './routes/_auth/_projeto.$slug'
+import { Route as AuthProjetoSlugVisaoGeralImport } from './routes/_auth/_projeto/$slug/visao-geral'
+import { Route as AuthProjetoSlugHomeImport } from './routes/_auth/_projeto/$slug/home'
+import { Route as AuthProjetoSlugConfiguracoesImport } from './routes/_auth/_projeto/$slug/configuracoes'
+import { Route as AuthProjetoSlugAtualizacoesImport } from './routes/_auth/_projeto/$slug/atualizacoes'
+import { Route as AuthProjetoSlugAgendaImport } from './routes/_auth/_projeto/$slug/agenda'
+import { Route as AuthProjetoSlugFinanceiroIndexImport } from './routes/_auth/_projeto/$slug/financeiro/index'
+import { Route as AuthProjetoSlugDocumentosIndexImport } from './routes/_auth/_projeto/$slug/documentos/index'
+import { Route as AuthProjetoSlugFinanceiroFolderSlugIndexImport } from './routes/_auth/_projeto/$slug/financeiro/$folderSlug/index'
+import { Route as AuthProjetoSlugDocumentosFolderSlugIndexImport } from './routes/_auth/_projeto/$slug/documentos/$folderSlug/index'
 
 // Create/Update Routes
 
@@ -38,70 +38,76 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthVisaoGeralRoute = AuthVisaoGeralImport.update({
-  id: '/visao-geral',
-  path: '/visao-geral',
-  getParentRoute: () => AuthRoute,
-} as any)
-
 const AuthProjetosRoute = AuthProjetosImport.update({
   id: '/projetos',
   path: '/projetos',
   getParentRoute: () => AuthRoute,
 } as any)
 
-const AuthHomeRoute = AuthHomeImport.update({
+const AuthProjetoSlugRoute = AuthProjetoSlugImport.update({
+  id: '/_projeto/$slug',
+  path: '/$slug',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthProjetoSlugVisaoGeralRoute = AuthProjetoSlugVisaoGeralImport.update({
+  id: '/visao-geral',
+  path: '/visao-geral',
+  getParentRoute: () => AuthProjetoSlugRoute,
+} as any)
+
+const AuthProjetoSlugHomeRoute = AuthProjetoSlugHomeImport.update({
   id: '/home',
   path: '/home',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => AuthProjetoSlugRoute,
 } as any)
 
-const AuthConfiguracoesRoute = AuthConfiguracoesImport.update({
-  id: '/configuracoes',
-  path: '/configuracoes',
-  getParentRoute: () => AuthRoute,
-} as any)
+const AuthProjetoSlugConfiguracoesRoute =
+  AuthProjetoSlugConfiguracoesImport.update({
+    id: '/configuracoes',
+    path: '/configuracoes',
+    getParentRoute: () => AuthProjetoSlugRoute,
+  } as any)
 
-const AuthAtualizacoesRoute = AuthAtualizacoesImport.update({
-  id: '/atualizacoes',
-  path: '/atualizacoes',
-  getParentRoute: () => AuthRoute,
-} as any)
+const AuthProjetoSlugAtualizacoesRoute =
+  AuthProjetoSlugAtualizacoesImport.update({
+    id: '/atualizacoes',
+    path: '/atualizacoes',
+    getParentRoute: () => AuthProjetoSlugRoute,
+  } as any)
 
-const AuthAgendaRoute = AuthAgendaImport.update({
+const AuthProjetoSlugAgendaRoute = AuthProjetoSlugAgendaImport.update({
   id: '/agenda',
   path: '/agenda',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => AuthProjetoSlugRoute,
 } as any)
 
-const AuthProjetoRoute = AuthProjetoImport.update({
-  id: '/_projeto',
-  getParentRoute: () => AuthRoute,
-} as any)
+const AuthProjetoSlugFinanceiroIndexRoute =
+  AuthProjetoSlugFinanceiroIndexImport.update({
+    id: '/financeiro/',
+    path: '/financeiro/',
+    getParentRoute: () => AuthProjetoSlugRoute,
+  } as any)
 
-const AuthFinanceiroIndexRoute = AuthFinanceiroIndexImport.update({
-  id: '/financeiro/',
-  path: '/financeiro/',
-  getParentRoute: () => AuthRoute,
-} as any)
+const AuthProjetoSlugDocumentosIndexRoute =
+  AuthProjetoSlugDocumentosIndexImport.update({
+    id: '/documentos/',
+    path: '/documentos/',
+    getParentRoute: () => AuthProjetoSlugRoute,
+  } as any)
 
-const AuthDocumentosIndexRoute = AuthDocumentosIndexImport.update({
-  id: '/documentos/',
-  path: '/documentos/',
-  getParentRoute: () => AuthRoute,
-} as any)
+const AuthProjetoSlugFinanceiroFolderSlugIndexRoute =
+  AuthProjetoSlugFinanceiroFolderSlugIndexImport.update({
+    id: '/financeiro/$folderSlug/',
+    path: '/financeiro/$folderSlug/',
+    getParentRoute: () => AuthProjetoSlugRoute,
+  } as any)
 
-const AuthProjetoSlugRoute = AuthProjetoSlugImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => AuthProjetoRoute,
-} as any)
-
-const AuthDocumentosFolderSlugIndexRoute =
-  AuthDocumentosFolderSlugIndexImport.update({
+const AuthProjetoSlugDocumentosFolderSlugIndexRoute =
+  AuthProjetoSlugDocumentosFolderSlugIndexImport.update({
     id: '/documentos/$folderSlug/',
     path: '/documentos/$folderSlug/',
-    getParentRoute: () => AuthRoute,
+    getParentRoute: () => AuthProjetoSlugRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -122,41 +128,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
     }
-    '/_auth/_projeto': {
-      id: '/_auth/_projeto'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthProjetoImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/agenda': {
-      id: '/_auth/agenda'
-      path: '/agenda'
-      fullPath: '/agenda'
-      preLoaderRoute: typeof AuthAgendaImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/atualizacoes': {
-      id: '/_auth/atualizacoes'
-      path: '/atualizacoes'
-      fullPath: '/atualizacoes'
-      preLoaderRoute: typeof AuthAtualizacoesImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/configuracoes': {
-      id: '/_auth/configuracoes'
-      path: '/configuracoes'
-      fullPath: '/configuracoes'
-      preLoaderRoute: typeof AuthConfiguracoesImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/home': {
-      id: '/_auth/home'
-      path: '/home'
-      fullPath: '/home'
-      preLoaderRoute: typeof AuthHomeImport
-      parentRoute: typeof AuthImport
-    }
     '/_auth/projetos': {
       id: '/_auth/projetos'
       path: '/projetos'
@@ -164,131 +135,170 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthProjetosImport
       parentRoute: typeof AuthImport
     }
-    '/_auth/visao-geral': {
-      id: '/_auth/visao-geral'
-      path: '/visao-geral'
-      fullPath: '/visao-geral'
-      preLoaderRoute: typeof AuthVisaoGeralImport
-      parentRoute: typeof AuthImport
-    }
     '/_auth/_projeto/$slug': {
       id: '/_auth/_projeto/$slug'
       path: '/$slug'
       fullPath: '/$slug'
       preLoaderRoute: typeof AuthProjetoSlugImport
-      parentRoute: typeof AuthProjetoImport
+      parentRoute: typeof AuthImport
     }
-    '/_auth/documentos/': {
-      id: '/_auth/documentos/'
+    '/_auth/_projeto/$slug/agenda': {
+      id: '/_auth/_projeto/$slug/agenda'
+      path: '/agenda'
+      fullPath: '/$slug/agenda'
+      preLoaderRoute: typeof AuthProjetoSlugAgendaImport
+      parentRoute: typeof AuthProjetoSlugImport
+    }
+    '/_auth/_projeto/$slug/atualizacoes': {
+      id: '/_auth/_projeto/$slug/atualizacoes'
+      path: '/atualizacoes'
+      fullPath: '/$slug/atualizacoes'
+      preLoaderRoute: typeof AuthProjetoSlugAtualizacoesImport
+      parentRoute: typeof AuthProjetoSlugImport
+    }
+    '/_auth/_projeto/$slug/configuracoes': {
+      id: '/_auth/_projeto/$slug/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/$slug/configuracoes'
+      preLoaderRoute: typeof AuthProjetoSlugConfiguracoesImport
+      parentRoute: typeof AuthProjetoSlugImport
+    }
+    '/_auth/_projeto/$slug/home': {
+      id: '/_auth/_projeto/$slug/home'
+      path: '/home'
+      fullPath: '/$slug/home'
+      preLoaderRoute: typeof AuthProjetoSlugHomeImport
+      parentRoute: typeof AuthProjetoSlugImport
+    }
+    '/_auth/_projeto/$slug/visao-geral': {
+      id: '/_auth/_projeto/$slug/visao-geral'
+      path: '/visao-geral'
+      fullPath: '/$slug/visao-geral'
+      preLoaderRoute: typeof AuthProjetoSlugVisaoGeralImport
+      parentRoute: typeof AuthProjetoSlugImport
+    }
+    '/_auth/_projeto/$slug/documentos/': {
+      id: '/_auth/_projeto/$slug/documentos/'
       path: '/documentos'
-      fullPath: '/documentos'
-      preLoaderRoute: typeof AuthDocumentosIndexImport
-      parentRoute: typeof AuthImport
+      fullPath: '/$slug/documentos'
+      preLoaderRoute: typeof AuthProjetoSlugDocumentosIndexImport
+      parentRoute: typeof AuthProjetoSlugImport
     }
-    '/_auth/financeiro/': {
-      id: '/_auth/financeiro/'
+    '/_auth/_projeto/$slug/financeiro/': {
+      id: '/_auth/_projeto/$slug/financeiro/'
       path: '/financeiro'
-      fullPath: '/financeiro'
-      preLoaderRoute: typeof AuthFinanceiroIndexImport
-      parentRoute: typeof AuthImport
+      fullPath: '/$slug/financeiro'
+      preLoaderRoute: typeof AuthProjetoSlugFinanceiroIndexImport
+      parentRoute: typeof AuthProjetoSlugImport
     }
-    '/_auth/documentos/$folderSlug/': {
-      id: '/_auth/documentos/$folderSlug/'
+    '/_auth/_projeto/$slug/documentos/$folderSlug/': {
+      id: '/_auth/_projeto/$slug/documentos/$folderSlug/'
       path: '/documentos/$folderSlug'
-      fullPath: '/documentos/$folderSlug'
-      preLoaderRoute: typeof AuthDocumentosFolderSlugIndexImport
-      parentRoute: typeof AuthImport
+      fullPath: '/$slug/documentos/$folderSlug'
+      preLoaderRoute: typeof AuthProjetoSlugDocumentosFolderSlugIndexImport
+      parentRoute: typeof AuthProjetoSlugImport
+    }
+    '/_auth/_projeto/$slug/financeiro/$folderSlug/': {
+      id: '/_auth/_projeto/$slug/financeiro/$folderSlug/'
+      path: '/financeiro/$folderSlug'
+      fullPath: '/$slug/financeiro/$folderSlug'
+      preLoaderRoute: typeof AuthProjetoSlugFinanceiroFolderSlugIndexImport
+      parentRoute: typeof AuthProjetoSlugImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface AuthProjetoRouteChildren {
-  AuthProjetoSlugRoute: typeof AuthProjetoSlugRoute
+interface AuthProjetoSlugRouteChildren {
+  AuthProjetoSlugAgendaRoute: typeof AuthProjetoSlugAgendaRoute
+  AuthProjetoSlugAtualizacoesRoute: typeof AuthProjetoSlugAtualizacoesRoute
+  AuthProjetoSlugConfiguracoesRoute: typeof AuthProjetoSlugConfiguracoesRoute
+  AuthProjetoSlugHomeRoute: typeof AuthProjetoSlugHomeRoute
+  AuthProjetoSlugVisaoGeralRoute: typeof AuthProjetoSlugVisaoGeralRoute
+  AuthProjetoSlugDocumentosIndexRoute: typeof AuthProjetoSlugDocumentosIndexRoute
+  AuthProjetoSlugFinanceiroIndexRoute: typeof AuthProjetoSlugFinanceiroIndexRoute
+  AuthProjetoSlugDocumentosFolderSlugIndexRoute: typeof AuthProjetoSlugDocumentosFolderSlugIndexRoute
+  AuthProjetoSlugFinanceiroFolderSlugIndexRoute: typeof AuthProjetoSlugFinanceiroFolderSlugIndexRoute
 }
 
-const AuthProjetoRouteChildren: AuthProjetoRouteChildren = {
-  AuthProjetoSlugRoute: AuthProjetoSlugRoute,
+const AuthProjetoSlugRouteChildren: AuthProjetoSlugRouteChildren = {
+  AuthProjetoSlugAgendaRoute: AuthProjetoSlugAgendaRoute,
+  AuthProjetoSlugAtualizacoesRoute: AuthProjetoSlugAtualizacoesRoute,
+  AuthProjetoSlugConfiguracoesRoute: AuthProjetoSlugConfiguracoesRoute,
+  AuthProjetoSlugHomeRoute: AuthProjetoSlugHomeRoute,
+  AuthProjetoSlugVisaoGeralRoute: AuthProjetoSlugVisaoGeralRoute,
+  AuthProjetoSlugDocumentosIndexRoute: AuthProjetoSlugDocumentosIndexRoute,
+  AuthProjetoSlugFinanceiroIndexRoute: AuthProjetoSlugFinanceiroIndexRoute,
+  AuthProjetoSlugDocumentosFolderSlugIndexRoute:
+    AuthProjetoSlugDocumentosFolderSlugIndexRoute,
+  AuthProjetoSlugFinanceiroFolderSlugIndexRoute:
+    AuthProjetoSlugFinanceiroFolderSlugIndexRoute,
 }
 
-const AuthProjetoRouteWithChildren = AuthProjetoRoute._addFileChildren(
-  AuthProjetoRouteChildren,
+const AuthProjetoSlugRouteWithChildren = AuthProjetoSlugRoute._addFileChildren(
+  AuthProjetoSlugRouteChildren,
 )
 
 interface AuthRouteChildren {
-  AuthProjetoRoute: typeof AuthProjetoRouteWithChildren
-  AuthAgendaRoute: typeof AuthAgendaRoute
-  AuthAtualizacoesRoute: typeof AuthAtualizacoesRoute
-  AuthConfiguracoesRoute: typeof AuthConfiguracoesRoute
-  AuthHomeRoute: typeof AuthHomeRoute
   AuthProjetosRoute: typeof AuthProjetosRoute
-  AuthVisaoGeralRoute: typeof AuthVisaoGeralRoute
-  AuthDocumentosIndexRoute: typeof AuthDocumentosIndexRoute
-  AuthFinanceiroIndexRoute: typeof AuthFinanceiroIndexRoute
-  AuthDocumentosFolderSlugIndexRoute: typeof AuthDocumentosFolderSlugIndexRoute
+  AuthProjetoSlugRoute: typeof AuthProjetoSlugRouteWithChildren
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
-  AuthProjetoRoute: AuthProjetoRouteWithChildren,
-  AuthAgendaRoute: AuthAgendaRoute,
-  AuthAtualizacoesRoute: AuthAtualizacoesRoute,
-  AuthConfiguracoesRoute: AuthConfiguracoesRoute,
-  AuthHomeRoute: AuthHomeRoute,
   AuthProjetosRoute: AuthProjetosRoute,
-  AuthVisaoGeralRoute: AuthVisaoGeralRoute,
-  AuthDocumentosIndexRoute: AuthDocumentosIndexRoute,
-  AuthFinanceiroIndexRoute: AuthFinanceiroIndexRoute,
-  AuthDocumentosFolderSlugIndexRoute: AuthDocumentosFolderSlugIndexRoute,
+  AuthProjetoSlugRoute: AuthProjetoSlugRouteWithChildren,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '': typeof AuthProjetoRouteWithChildren
-  '/agenda': typeof AuthAgendaRoute
-  '/atualizacoes': typeof AuthAtualizacoesRoute
-  '/configuracoes': typeof AuthConfiguracoesRoute
-  '/home': typeof AuthHomeRoute
+  '': typeof AuthRouteWithChildren
   '/projetos': typeof AuthProjetosRoute
-  '/visao-geral': typeof AuthVisaoGeralRoute
-  '/$slug': typeof AuthProjetoSlugRoute
-  '/documentos': typeof AuthDocumentosIndexRoute
-  '/financeiro': typeof AuthFinanceiroIndexRoute
-  '/documentos/$folderSlug': typeof AuthDocumentosFolderSlugIndexRoute
+  '/$slug': typeof AuthProjetoSlugRouteWithChildren
+  '/$slug/agenda': typeof AuthProjetoSlugAgendaRoute
+  '/$slug/atualizacoes': typeof AuthProjetoSlugAtualizacoesRoute
+  '/$slug/configuracoes': typeof AuthProjetoSlugConfiguracoesRoute
+  '/$slug/home': typeof AuthProjetoSlugHomeRoute
+  '/$slug/visao-geral': typeof AuthProjetoSlugVisaoGeralRoute
+  '/$slug/documentos': typeof AuthProjetoSlugDocumentosIndexRoute
+  '/$slug/financeiro': typeof AuthProjetoSlugFinanceiroIndexRoute
+  '/$slug/documentos/$folderSlug': typeof AuthProjetoSlugDocumentosFolderSlugIndexRoute
+  '/$slug/financeiro/$folderSlug': typeof AuthProjetoSlugFinanceiroFolderSlugIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '': typeof AuthProjetoRouteWithChildren
-  '/agenda': typeof AuthAgendaRoute
-  '/atualizacoes': typeof AuthAtualizacoesRoute
-  '/configuracoes': typeof AuthConfiguracoesRoute
-  '/home': typeof AuthHomeRoute
+  '': typeof AuthRouteWithChildren
   '/projetos': typeof AuthProjetosRoute
-  '/visao-geral': typeof AuthVisaoGeralRoute
-  '/$slug': typeof AuthProjetoSlugRoute
-  '/documentos': typeof AuthDocumentosIndexRoute
-  '/financeiro': typeof AuthFinanceiroIndexRoute
-  '/documentos/$folderSlug': typeof AuthDocumentosFolderSlugIndexRoute
+  '/$slug': typeof AuthProjetoSlugRouteWithChildren
+  '/$slug/agenda': typeof AuthProjetoSlugAgendaRoute
+  '/$slug/atualizacoes': typeof AuthProjetoSlugAtualizacoesRoute
+  '/$slug/configuracoes': typeof AuthProjetoSlugConfiguracoesRoute
+  '/$slug/home': typeof AuthProjetoSlugHomeRoute
+  '/$slug/visao-geral': typeof AuthProjetoSlugVisaoGeralRoute
+  '/$slug/documentos': typeof AuthProjetoSlugDocumentosIndexRoute
+  '/$slug/financeiro': typeof AuthProjetoSlugFinanceiroIndexRoute
+  '/$slug/documentos/$folderSlug': typeof AuthProjetoSlugDocumentosFolderSlugIndexRoute
+  '/$slug/financeiro/$folderSlug': typeof AuthProjetoSlugFinanceiroFolderSlugIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteWithChildren
-  '/_auth/_projeto': typeof AuthProjetoRouteWithChildren
-  '/_auth/agenda': typeof AuthAgendaRoute
-  '/_auth/atualizacoes': typeof AuthAtualizacoesRoute
-  '/_auth/configuracoes': typeof AuthConfiguracoesRoute
-  '/_auth/home': typeof AuthHomeRoute
   '/_auth/projetos': typeof AuthProjetosRoute
-  '/_auth/visao-geral': typeof AuthVisaoGeralRoute
-  '/_auth/_projeto/$slug': typeof AuthProjetoSlugRoute
-  '/_auth/documentos/': typeof AuthDocumentosIndexRoute
-  '/_auth/financeiro/': typeof AuthFinanceiroIndexRoute
-  '/_auth/documentos/$folderSlug/': typeof AuthDocumentosFolderSlugIndexRoute
+  '/_auth/_projeto/$slug': typeof AuthProjetoSlugRouteWithChildren
+  '/_auth/_projeto/$slug/agenda': typeof AuthProjetoSlugAgendaRoute
+  '/_auth/_projeto/$slug/atualizacoes': typeof AuthProjetoSlugAtualizacoesRoute
+  '/_auth/_projeto/$slug/configuracoes': typeof AuthProjetoSlugConfiguracoesRoute
+  '/_auth/_projeto/$slug/home': typeof AuthProjetoSlugHomeRoute
+  '/_auth/_projeto/$slug/visao-geral': typeof AuthProjetoSlugVisaoGeralRoute
+  '/_auth/_projeto/$slug/documentos/': typeof AuthProjetoSlugDocumentosIndexRoute
+  '/_auth/_projeto/$slug/financeiro/': typeof AuthProjetoSlugFinanceiroIndexRoute
+  '/_auth/_projeto/$slug/documentos/$folderSlug/': typeof AuthProjetoSlugDocumentosFolderSlugIndexRoute
+  '/_auth/_projeto/$slug/financeiro/$folderSlug/': typeof AuthProjetoSlugFinanceiroFolderSlugIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -296,45 +306,47 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
-    | '/agenda'
-    | '/atualizacoes'
-    | '/configuracoes'
-    | '/home'
     | '/projetos'
-    | '/visao-geral'
     | '/$slug'
-    | '/documentos'
-    | '/financeiro'
-    | '/documentos/$folderSlug'
+    | '/$slug/agenda'
+    | '/$slug/atualizacoes'
+    | '/$slug/configuracoes'
+    | '/$slug/home'
+    | '/$slug/visao-geral'
+    | '/$slug/documentos'
+    | '/$slug/financeiro'
+    | '/$slug/documentos/$folderSlug'
+    | '/$slug/financeiro/$folderSlug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | ''
-    | '/agenda'
-    | '/atualizacoes'
-    | '/configuracoes'
-    | '/home'
     | '/projetos'
-    | '/visao-geral'
     | '/$slug'
-    | '/documentos'
-    | '/financeiro'
-    | '/documentos/$folderSlug'
+    | '/$slug/agenda'
+    | '/$slug/atualizacoes'
+    | '/$slug/configuracoes'
+    | '/$slug/home'
+    | '/$slug/visao-geral'
+    | '/$slug/documentos'
+    | '/$slug/financeiro'
+    | '/$slug/documentos/$folderSlug'
+    | '/$slug/financeiro/$folderSlug'
   id:
     | '__root__'
     | '/'
     | '/_auth'
-    | '/_auth/_projeto'
-    | '/_auth/agenda'
-    | '/_auth/atualizacoes'
-    | '/_auth/configuracoes'
-    | '/_auth/home'
     | '/_auth/projetos'
-    | '/_auth/visao-geral'
     | '/_auth/_projeto/$slug'
-    | '/_auth/documentos/'
-    | '/_auth/financeiro/'
-    | '/_auth/documentos/$folderSlug/'
+    | '/_auth/_projeto/$slug/agenda'
+    | '/_auth/_projeto/$slug/atualizacoes'
+    | '/_auth/_projeto/$slug/configuracoes'
+    | '/_auth/_projeto/$slug/home'
+    | '/_auth/_projeto/$slug/visao-geral'
+    | '/_auth/_projeto/$slug/documentos/'
+    | '/_auth/_projeto/$slug/financeiro/'
+    | '/_auth/_projeto/$slug/documentos/$folderSlug/'
+    | '/_auth/_projeto/$slug/financeiro/$folderSlug/'
   fileRoutesById: FileRoutesById
 }
 
@@ -368,64 +380,64 @@ export const routeTree = rootRoute
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
-        "/_auth/_projeto",
-        "/_auth/agenda",
-        "/_auth/atualizacoes",
-        "/_auth/configuracoes",
-        "/_auth/home",
         "/_auth/projetos",
-        "/_auth/visao-geral",
-        "/_auth/documentos/",
-        "/_auth/financeiro/",
-        "/_auth/documentos/$folderSlug/"
-      ]
-    },
-    "/_auth/_projeto": {
-      "filePath": "_auth/_projeto.tsx",
-      "parent": "/_auth",
-      "children": [
         "/_auth/_projeto/$slug"
       ]
-    },
-    "/_auth/agenda": {
-      "filePath": "_auth/agenda.tsx",
-      "parent": "/_auth"
-    },
-    "/_auth/atualizacoes": {
-      "filePath": "_auth/atualizacoes.tsx",
-      "parent": "/_auth"
-    },
-    "/_auth/configuracoes": {
-      "filePath": "_auth/configuracoes.tsx",
-      "parent": "/_auth"
-    },
-    "/_auth/home": {
-      "filePath": "_auth/home.tsx",
-      "parent": "/_auth"
     },
     "/_auth/projetos": {
       "filePath": "_auth/projetos.tsx",
       "parent": "/_auth"
     },
-    "/_auth/visao-geral": {
-      "filePath": "_auth/visao-geral.tsx",
-      "parent": "/_auth"
-    },
     "/_auth/_projeto/$slug": {
-      "filePath": "_auth/_projeto/$slug.tsx",
-      "parent": "/_auth/_projeto"
+      "filePath": "_auth/_projeto.$slug.tsx",
+      "parent": "/_auth",
+      "children": [
+        "/_auth/_projeto/$slug/agenda",
+        "/_auth/_projeto/$slug/atualizacoes",
+        "/_auth/_projeto/$slug/configuracoes",
+        "/_auth/_projeto/$slug/home",
+        "/_auth/_projeto/$slug/visao-geral",
+        "/_auth/_projeto/$slug/documentos/",
+        "/_auth/_projeto/$slug/financeiro/",
+        "/_auth/_projeto/$slug/documentos/$folderSlug/",
+        "/_auth/_projeto/$slug/financeiro/$folderSlug/"
+      ]
     },
-    "/_auth/documentos/": {
-      "filePath": "_auth/documentos/index.tsx",
-      "parent": "/_auth"
+    "/_auth/_projeto/$slug/agenda": {
+      "filePath": "_auth/_projeto/$slug/agenda.tsx",
+      "parent": "/_auth/_projeto/$slug"
     },
-    "/_auth/financeiro/": {
-      "filePath": "_auth/financeiro/index.tsx",
-      "parent": "/_auth"
+    "/_auth/_projeto/$slug/atualizacoes": {
+      "filePath": "_auth/_projeto/$slug/atualizacoes.tsx",
+      "parent": "/_auth/_projeto/$slug"
     },
-    "/_auth/documentos/$folderSlug/": {
-      "filePath": "_auth/documentos/$folderSlug/index.tsx",
-      "parent": "/_auth"
+    "/_auth/_projeto/$slug/configuracoes": {
+      "filePath": "_auth/_projeto/$slug/configuracoes.tsx",
+      "parent": "/_auth/_projeto/$slug"
+    },
+    "/_auth/_projeto/$slug/home": {
+      "filePath": "_auth/_projeto/$slug/home.tsx",
+      "parent": "/_auth/_projeto/$slug"
+    },
+    "/_auth/_projeto/$slug/visao-geral": {
+      "filePath": "_auth/_projeto/$slug/visao-geral.tsx",
+      "parent": "/_auth/_projeto/$slug"
+    },
+    "/_auth/_projeto/$slug/documentos/": {
+      "filePath": "_auth/_projeto/$slug/documentos/index.tsx",
+      "parent": "/_auth/_projeto/$slug"
+    },
+    "/_auth/_projeto/$slug/financeiro/": {
+      "filePath": "_auth/_projeto/$slug/financeiro/index.tsx",
+      "parent": "/_auth/_projeto/$slug"
+    },
+    "/_auth/_projeto/$slug/documentos/$folderSlug/": {
+      "filePath": "_auth/_projeto/$slug/documentos/$folderSlug/index.tsx",
+      "parent": "/_auth/_projeto/$slug"
+    },
+    "/_auth/_projeto/$slug/financeiro/$folderSlug/": {
+      "filePath": "_auth/_projeto/$slug/financeiro/$folderSlug/index.tsx",
+      "parent": "/_auth/_projeto/$slug"
     }
   }
 }
