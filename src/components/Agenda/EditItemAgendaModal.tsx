@@ -3,7 +3,7 @@ import { Stack, TextField, Box, Button } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState, type FormEvent } from "react";
 import BaseModal from "../BaseModal";
-import type { ItemAgendaType } from "types";
+import type { ItemAgendaType } from "@/types";
 
 export default function EditItemAgendaModal({ itemAgenda, close }: { itemAgenda: ItemAgendaType | null; close: () => void }) {
     const [formData, setFormData] = useState({

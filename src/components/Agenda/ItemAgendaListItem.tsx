@@ -1,5 +1,5 @@
 import { IconButton, ListItem, ListItemText, Menu, MenuItem } from "@mui/material";
-import type { ItemAgendaType } from "types";
+import type { ItemAgendaType } from "@/types";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useState, type MouseEvent } from "react";
 import axiosBase from "@/axios/axios";

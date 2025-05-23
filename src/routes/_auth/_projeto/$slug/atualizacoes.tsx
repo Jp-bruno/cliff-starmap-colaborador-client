@@ -2,7 +2,7 @@ import HorizontalNavigation from "@/components/HorizontalNavigation/HorizontalNa
 import { useProjetoContext } from "@/contexts/projectContext";
 import { Box, Container, Divider, List, ListItem, ListItemText, ListSubheader, Typography } from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
-import type { AtualizacaoType } from "types";
+import type { AtualizacaoType } from "@/types";
 
 export const Route = createFileRoute("/_auth/_projeto/$slug/atualizacoes")({
     component: RouteComponent,

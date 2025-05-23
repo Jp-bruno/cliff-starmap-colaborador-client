@@ -1,5 +1,5 @@
 import { ListItem, ListItemIcon, ListItemText, useTheme } from "@mui/material";
-import type { ArquivoType } from "types";
+import type { ArquivoType } from "@/types";
 import TooltipIconButton from "./TooltipIconButton";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";

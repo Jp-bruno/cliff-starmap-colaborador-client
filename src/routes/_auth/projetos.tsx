@@ -1,8 +1,8 @@
 import axiosBase from "@/axios/axios";
-import { AppBar, Box, Typography, Stack, Toolbar, useTheme, Container, List, ListItemButton } from "@mui/material";
+import { Box, Typography, useTheme, Container, List, ListItemButton } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import type { ProjetoType } from "types";
+import type { ProjetoType } from "@/types";
 
 export const Route = createFileRoute("/_auth/projetos")({
     component: RouteComponent,
@@ -22,8 +22,6 @@ function RouteComponent() {
 
     return (
         <>
-
-
             <Box sx={{ ...theme.mixins.toolbar }}></Box>
 
             <Container sx={{ mt: 2 }}>
@@ -33,7 +31,12 @@ function RouteComponent() {
                     <>
                         <List>
                             {projetos.map((projeto: ProjetoType) => (
-                                <ListItemButton onClick={() => navigate({ to: "/$slug/home", params: { slug: projeto.slug }, })}>
+                                <ListItemButton
+                                    key={projeto._id}
+                                    onClick={() => {
+                                        navigate({ to: "/$slug/home", params: { slug: projeto.slug } });
+                                    }}
+                                >
                                     {projeto.nome}
                                 </ListItemButton>
                             ))}

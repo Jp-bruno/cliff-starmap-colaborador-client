@@ -2,8 +2,8 @@ import { Box, Button, LinearProgress, Stack, TextField } from "@mui/material";
 import BaseModal from "./BaseModal";
 import { useState, type FormEvent } from "react";
 import axiosBase from "@/axios/axios";
-import { queryClient } from "@/main";
 import { useProjetoContext } from "@/contexts/projectContext";
+import axios from "axios";
 
 export default function AddFaseModal({ isOpen, close }: { isOpen: boolean; close: () => void }) {
     const [formData, setFormData] = useState<{ nome: string; descricao: string; banner: { nome: string; tipo: string } | null }>({
@@ -14,7 +14,7 @@ export default function AddFaseModal({ isOpen, close }: { isOpen: boolean; close
 
     const [waitingRequest, setWaitingRequest] = useState(false);
 
-    const { projeto } = useProjetoContext();
+    const { projeto, refetch } = useProjetoContext();
 
     function handleClose() {
         setFormData({ nome: "", descricao: "", banner: null });
@@ -25,15 +25,23 @@ export default function AddFaseModal({ isOpen, close }: { isOpen: boolean; close
     async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
         ev.preventDefault();
 
+        const file = (document.querySelector(".banner-file-input") as HTMLInputElement).files![0];
+
         setWaitingRequest(true);
 
         await axiosBase
             .post("/fase", { ...formData, projeto: projeto!._id })
-            .then(async () => {
+            .then(async (res) => {
                 //TODO: dar feedback do request (sucesso, falha, etc)
-                await queryClient.invalidateQueries({ queryKey: ["projeto"] });
+                if (res.data.signedUrl) {
+                    await axios.put(res.data.signedUrl, file, {
+                        headers: { "Content-Type": file.type },
+                    });
+                }
             })
-            .finally(() => {
+            .finally(async () => {
+                refetch();
+                console.log("aqui");
                 handleClose();
             });
     }
@@ -72,7 +80,7 @@ export default function AddFaseModal({ isOpen, close }: { isOpen: boolean; close
                         label="Banner"
                         type="file"
                         size="small"
-                        slotProps={{ inputLabel: { shrink: true } }}
+                        slotProps={{ inputLabel: { shrink: true }, htmlInput: { className: "banner-file-input" } }}
                     />
                     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                         <Button type="submit" variant="contained">

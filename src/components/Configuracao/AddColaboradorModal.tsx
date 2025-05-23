@@ -3,10 +3,10 @@ import Add from "@mui/icons-material/Add";
 import BaseModal from "../BaseModal";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosBase from "@/axios/axios";
-import type { ColaboradorType } from "@/types";
+import type { ClienteType } from "@/types";
 import { useProjetoContext } from "@/contexts/projectContext";
 
-export default function AddContatoModal({ isOpen, close }: { isOpen: boolean; close: () => void }) {
+export default function AddColaboradorModal({ isOpen, close }: { isOpen: boolean; close: () => void }) {
     const { data: colaboradores, isLoading } = useQuery({
         queryKey: ["colaboradores"],
         queryFn: async () => {
@@ -20,7 +20,7 @@ export default function AddContatoModal({ isOpen, close }: { isOpen: boolean; cl
 
     async function handleAdd(colaboradorId: string) {
         await axiosBase
-            .patch(`/projeto/${projeto!._id}/contato`, { colaboradorId, operation: "add" })
+            .patch(`/projeto/${projeto!._id}/colaborador`, { colaboradorId, operation: "add" })
             .then(async () => await queryClient.invalidateQueries({ queryKey: ["projeto"] }));
     }
 
@@ -33,13 +33,13 @@ export default function AddContatoModal({ isOpen, close }: { isOpen: boolean; cl
     }
 
     const colaboradoresDisponiveis = colaboradores.filter(
-        (colaborador: ColaboradorType) => !projeto!.contatos.some((contato: ColaboradorType) => contato._id === colaborador._id)
+        (colaborador: ClienteType) => !projeto!.colaboradores.some((p_colaborador: ClienteType) => p_colaborador._id === colaborador._id)
     );
 
     return (
-        <BaseModal isOpen={isOpen} close={handleClose} title="Adicionar contato ao projeto">
+        <BaseModal isOpen={isOpen} close={handleClose} title="Adicionar colaborador ao projeto">
             <List>
-                {colaboradoresDisponiveis.map((colaborador: ColaboradorType) => {
+                {colaboradoresDisponiveis.map((colaborador: ClienteType) => {
                     return (
                         <ListItemButton sx={{ display: "flex", justifyContent: "space-between" }} onClick={() => handleAdd(colaborador._id)}>
                             {colaborador.nome}

@@ -1,7 +1,7 @@
 import { IconButton, ListItem, ListItemText, Menu, MenuItem } from "@mui/material";
 import { useProjetoContext } from "@/contexts/projectContext";
 import { useQueryClient } from "@tanstack/react-query";
-import type { FaseType } from "types";
+import type { FaseType } from "@/types";
 import axiosBase from "@/axios/axios";
 import { useState, type MouseEvent } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";

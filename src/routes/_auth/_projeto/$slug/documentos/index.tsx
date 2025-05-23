@@ -6,8 +6,8 @@ import TooltipIconButton from "@/components/TooltipIconButton";
 import AddFolderModal from "@/components/AddFolderModal";
 import { useState } from "react";
 import { useProjetoContext } from "@/contexts/projectContext";
-import type { PastaType } from "types";
-import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import type { FaseType, PastaType } from "@/types";
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 
 export const Route = createFileRoute("/_auth/_projeto/$slug/documentos/")({
     component: Documentos,
@@ -24,7 +24,9 @@ function Documentos() {
 
     const [addFolderModalState, setAddFolderModalState] = useState<null | "documentos">(null);
 
-    const { faseSelecionada } = useProjetoContext();
+    const { faseSelecionada, projeto } = useProjetoContext();
+
+    const documentos = projeto!.fases.find((p_fase: FaseType) => p_fase._id === faseSelecionada?._id)?.documentos;
 
     return (
         <Container>
@@ -36,12 +38,12 @@ function Documentos() {
             </Paper>
 
             <Grid container spacing={2} sx={{ pt: 5 }}>
-                {faseSelecionada?.documentos.map((folder: PastaType) => <Folder key={folder.nome} folder={folder} />)}
+                {documentos.map((folder: PastaType) => (
+                    <Folder key={folder.nome} folder={folder} />
+                ))}
             </Grid>
 
-            {faseSelecionada?.documentos.length === 0 && (
-                <Typography variant="caption">Não há pastas, clique no botão acima para adicionar pastas</Typography>
-            )}
+            {documentos.length === 0 && <Typography variant="caption">Não há pastas, clique no botão acima para adicionar pastas</Typography>}
         </Container>
     );
 }

@@ -3,7 +3,7 @@ import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRound
 import CompromissoItem from "./CompromissoItem";
 import ContatosItem from "./ContatosItem";
 import { useProjetoContext } from "@/contexts/projectContext";
-import type { ColaboradorType } from "types";
+import type { ColaboradorType } from "@/types";
 
 // const drawerWidth = 340;
 

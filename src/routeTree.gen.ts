@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthProjetosImport } from './routes/_auth/projetos'
+import { Route as AuthPerfilImport } from './routes/_auth/perfil'
 import { Route as AuthAdminUsuariosImport } from './routes/_auth/admin/usuarios'
 import { Route as AuthAdminProjetosImport } from './routes/_auth/admin/projetos'
 import { Route as AuthProjetoSlugImport } from './routes/_auth/_projeto.$slug'
@@ -43,6 +44,12 @@ const IndexRoute = IndexImport.update({
 const AuthProjetosRoute = AuthProjetosImport.update({
   id: '/projetos',
   path: '/projetos',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthPerfilRoute = AuthPerfilImport.update({
+  id: '/perfil',
+  path: '/perfil',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -141,6 +148,13 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
+    }
+    '/_auth/perfil': {
+      id: '/_auth/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof AuthPerfilImport
+      parentRoute: typeof AuthImport
     }
     '/_auth/projetos': {
       id: '/_auth/projetos'
@@ -269,6 +283,7 @@ const AuthProjetoSlugRouteWithChildren = AuthProjetoSlugRoute._addFileChildren(
 )
 
 interface AuthRouteChildren {
+  AuthPerfilRoute: typeof AuthPerfilRoute
   AuthProjetosRoute: typeof AuthProjetosRoute
   AuthProjetoSlugRoute: typeof AuthProjetoSlugRouteWithChildren
   AuthAdminProjetosRoute: typeof AuthAdminProjetosRoute
@@ -276,6 +291,7 @@ interface AuthRouteChildren {
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
+  AuthPerfilRoute: AuthPerfilRoute,
   AuthProjetosRoute: AuthProjetosRoute,
   AuthProjetoSlugRoute: AuthProjetoSlugRouteWithChildren,
   AuthAdminProjetosRoute: AuthAdminProjetosRoute,
@@ -287,6 +303,7 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthRouteWithChildren
+  '/perfil': typeof AuthPerfilRoute
   '/projetos': typeof AuthProjetosRoute
   '/$slug': typeof AuthProjetoSlugRouteWithChildren
   '/admin/projetos': typeof AuthAdminProjetosRoute
@@ -305,6 +322,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof AuthRouteWithChildren
+  '/perfil': typeof AuthPerfilRoute
   '/projetos': typeof AuthProjetosRoute
   '/$slug': typeof AuthProjetoSlugRouteWithChildren
   '/admin/projetos': typeof AuthAdminProjetosRoute
@@ -324,6 +342,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteWithChildren
+  '/_auth/perfil': typeof AuthPerfilRoute
   '/_auth/projetos': typeof AuthProjetosRoute
   '/_auth/_projeto/$slug': typeof AuthProjetoSlugRouteWithChildren
   '/_auth/admin/projetos': typeof AuthAdminProjetosRoute
@@ -344,6 +363,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
+    | '/perfil'
     | '/projetos'
     | '/$slug'
     | '/admin/projetos'
@@ -361,6 +381,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | ''
+    | '/perfil'
     | '/projetos'
     | '/$slug'
     | '/admin/projetos'
@@ -378,6 +399,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_auth'
+    | '/_auth/perfil'
     | '/_auth/projetos'
     | '/_auth/_projeto/$slug'
     | '/_auth/admin/projetos'
@@ -424,11 +446,16 @@ export const routeTree = rootRoute
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
+        "/_auth/perfil",
         "/_auth/projetos",
         "/_auth/_projeto/$slug",
         "/_auth/admin/projetos",
         "/_auth/admin/usuarios"
       ]
+    },
+    "/_auth/perfil": {
+      "filePath": "_auth/perfil.tsx",
+      "parent": "/_auth"
     },
     "/_auth/projetos": {
       "filePath": "_auth/projetos.tsx",

@@ -9,6 +9,7 @@ import PaidIcon from "@mui/icons-material/Paid";
 import UpdateIcon from "@mui/icons-material/Update";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { useProjetoContext } from "@/contexts/projectContext";
+import type { FaseType } from "@/types";
 
 export const Route = createFileRoute("/_auth/_projeto/$slug/home")({
     component: Home,
@@ -50,7 +51,9 @@ function Home() {
         },
     ];
 
-    if (!faseSelecionada) {
+    const fase = projeto!.fases.find((p_fase: FaseType) => p_fase._id === faseSelecionada?._id);
+
+    if (!fase) {
         return (
             <Box sx={{ display: "grid", gridTemplateColumns: "auto 350px", width: "100%" }}>
                 <Container sx={{ pt: 3 }}>
@@ -63,7 +66,7 @@ function Home() {
     return (
         <Box sx={{ display: "grid", gridTemplateColumns: "auto 350px", width: "100%" }}>
             <Container sx={{ pt: 3 }}>
-                <HomeBanner fase_name={faseSelecionada?.nome} fase_description={faseSelecionada?.descricao} fase_image={faseSelecionada?.banner} />
+                <HomeBanner fase_name={fase!.nome} fase_description={fase!.descricao} fase_image={fase!.banner} />
 
                 <Grid container spacing={3} sx={{ py: 4, maxHeight: "400px" }}>
                     {links.map((link) => (

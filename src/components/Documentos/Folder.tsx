@@ -3,7 +3,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState, type MouseEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useDeleteConfirmPrompt } from "@/contexts/deleteConfirmPromptContext";
-import type { PastaType } from "types";
+import type { PastaType } from "@/types";
 import axiosBase from "@/axios/axios";
 import { useQueryClient } from "@tanstack/react-query";
 import EditFolderModal from "../EditFolderModal";

@@ -1,11 +1,12 @@
-import { Toolbar, Typography, styled, Box, MenuItem, Select, Stack } from "@mui/material";
+import { Toolbar, Typography, styled, Box, MenuItem, Select, Grid } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
-import TooltipIconButton from "./TooltipIconButton";
+import TooltipIconButton from "../TooltipIconButton";
 import Add from "@mui/icons-material/Add";
 import { useState } from "react";
-import AddFaseModal from "./AddFaseModal";
+import AddFaseModal from "../AddFaseModal";
 import { useProjetoContext } from "@/contexts/projectContext";
-import type { FaseType } from "types";
+import type { FaseType } from "@/types";
+import AppBarMenu from "./AppBarMenu";
 
 interface AppBarProps {
     open?: boolean;
@@ -52,18 +53,18 @@ export default function OrionAppBar({ open }: { open: boolean }) {
 
     return (
         <AppBar position="fixed" open={open} elevation={1}>
-            <Toolbar sx={{ display: "grid", gridTemplateColumns: "70% 30%", backgroundColor: "white", color: "black" }}>
-                <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Toolbar component={Grid} container sx={{ backgroundColor: "white", color: "black" }}>
+                <Grid size={6} sx={{ display: "flex", alignItems: "center" }}>
                     <Typography variant="h6" noWrap component="div">
                         {projeto!.nome}
                     </Typography>
-                </Box>
+                </Grid>
 
-                <Box sx={{ width: "100%", display: "grid", gridTemplateColumns: "auto auto" }}>
+                <Grid size={6} sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Box sx={{ display: "flex", columnGap: 1 }}>
                         {projeto?.fases.length! > 0 && faseSelecionada && (
                             <>
-                                <Select value={faseSelecionada?._id} onChange={(ev) => handleSetFaseSelecionada(ev.target.value)} size="small">
+                                <Select value={faseSelecionada._id} onChange={(ev) => handleSetFaseSelecionada(ev.target.value)} size="small">
                                     {projeto?.fases.map((fase: FaseType) => (
                                         <MenuItem value={fase?._id} key={fase.nome}>
                                             {fase.nome}
@@ -88,11 +89,8 @@ export default function OrionAppBar({ open }: { open: boolean }) {
                         )}
                     </Box>
 
-                    <Stack direction="row" alignItems={"center"} spacing={2} sx={{ display: "flex", justifyContent: "flex-end" }}>
-                        <Typography>User</Typography>
-                        <img src="/profileDefault.png" alt="User" width="30" />
-                    </Stack>
-                </Box>
+                    <AppBarMenu />
+                </Grid>
             </Toolbar>
         </AppBar>
     );

@@ -6,7 +6,7 @@ import { useProjetoContext } from "@/contexts/projectContext";
 import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import type { PastaType } from "types";
+import type { FaseType, PastaType } from "@/types";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import { BarChart } from "@mui/x-charts/BarChart";
 import EditIcon from "@mui/icons-material/Edit";
@@ -21,7 +21,11 @@ function Financeiro() {
 
     const [dadosFinanceirosModalState, setDadosFinanceirosModalState] = useState(false);
 
-    const { faseSelecionada } = useProjetoContext();
+    const { projeto, faseSelecionada } = useProjetoContext();
+
+    const fase = projeto!.fases.find((p_fase: FaseType) => p_fase._id === faseSelecionada?._id);
+
+    const financeiro = fase?.financeiro;
 
     if (!faseSelecionada) {
         return null;
@@ -36,12 +40,12 @@ function Financeiro() {
             </Paper>
 
             <Grid container spacing={2} sx={{ pt: 5 }}>
-                {faseSelecionada?.financeiro.map((folder: PastaType) => <Folder key={folder.nome} folder={folder} />)}
+                {financeiro.map((folder: PastaType) => (
+                    <Folder key={folder.nome} folder={folder} />
+                ))}
             </Grid>
 
-            {faseSelecionada?.financeiro.length === 0 && (
-                <Typography variant="caption">Não há pastas, clique no botão acima para adicionar pastas</Typography>
-            )}
+            {financeiro.length === 0 && <Typography variant="caption">Não há pastas, clique no botão acima para adicionar pastas</Typography>}
 
             <Box sx={{ width: "100%", my: 5 }}>
                 <Typography variant="h5" textAlign={"center"}>
@@ -50,15 +54,14 @@ function Financeiro() {
                 <BarChart
                     title="Comparativo"
                     xAxis={[{ data: ["Valor projetado", "Valor orçado", "Valor real"] }]}
-                    series={[{ data: [faseSelecionada!.valorProjetado, faseSelecionada!.valorOrcado, faseSelecionada!.valorReal] }]}
+                    series={[{ data: [fase!.valorProjetado, fase!.valorOrcado, fase!.valorReal] }]}
                     height={300}
                     borderRadius={8}
-
                 />
                 <UpdateDadosFinanceirosModal
                     isOpen={dadosFinanceirosModalState}
                     close={() => setDadosFinanceirosModalState(false)}
-                    faseSelecionada={faseSelecionada}
+                    faseSelecionada={fase!}
                 />
             </Box>
         </Container>

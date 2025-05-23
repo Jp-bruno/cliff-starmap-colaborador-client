@@ -6,7 +6,7 @@ import { Container, Paper, Typography, List, ListSubheader, IconButton, ListItem
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import type { ClienteType, ColaboradorType } from "types";
+import type { ClienteType, ColaboradorType } from "@/types";
 
 export const Route = createFileRoute("/_auth/admin/usuarios")({
     component: Usuarios,

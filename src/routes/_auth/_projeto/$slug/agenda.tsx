@@ -7,7 +7,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import Add from "@mui/icons-material/Add";
 import AddItemAgendaModal from "@/components/Agenda/AddItemAgendaModal";
 import { useState } from "react";
-import type { ItemAgendaType } from "types";
+import type { ItemAgendaType } from "@/types";
 import ItemAgendaListItem from "@/components/Agenda/ItemAgendaListItem";
 
 export const Route = createFileRoute("/_auth/_projeto/$slug/agenda")({

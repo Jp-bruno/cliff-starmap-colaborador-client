@@ -3,7 +3,7 @@ import BaseModal from "./BaseModal";
 import axiosBase from "@/axios/axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState, type FormEvent } from "react";
-import type { PastaType } from "types";
+import type { PastaType } from "@/types";
 
 export default function EditFolderModal({ folder, close }: { folder: PastaType | null; close: () => void }) {
     const [formData, setFormData] = useState<{ nome: string; descricao: string }>({

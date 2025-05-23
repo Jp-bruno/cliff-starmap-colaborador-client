@@ -8,7 +8,7 @@ import { Container, Paper, Typography, List, ListSubheader, IconButton, ListItem
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import type { ProjetoType } from "types";
+import type { ProjetoType } from "@/types";
 
 export const Route = createFileRoute("/_auth/admin/projetos")({
     component: RouteComponent,
@@ -30,6 +30,7 @@ function RouteComponent() {
 
     async function handleDelete(projetoId: string) {
         return await axiosBase.delete(`/projeto/${projetoId}`).then(async () => {
+            window.alert("Projeto excluído com sucesso")
             await queryClient.invalidateQueries({ queryKey: ["projetos"] });
         });
     }

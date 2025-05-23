@@ -6,20 +6,20 @@ import axiosBase from "@/axios/axios";
 import { useProjetoContext } from "@/contexts/projectContext";
 import { useQueryClient } from "@tanstack/react-query";
 
-export default function ConfiguracaoContatosListItem({ contato }: { contato: ColaboradorType }) {
+export default function ConfiguracaoColaboradoresListItem({ colaborador }: { colaborador: ColaboradorType }) {
     const { projeto } = useProjetoContext();
 
     const queryClient = useQueryClient();
 
-    async function handleRemoveContato() {
+    async function handleRemoveCliente() {
         await axiosBase
-            .patch(`/projeto/${projeto!._id}/contato`, { colaboradorId: contato._id, operation: "remove" })
+            .patch(`/projeto/${projeto!._id}/colaborador`, { colaboradorId: colaborador._id, operation: "remove" })
             .then(async () => await queryClient.invalidateQueries({ queryKey: ["projeto"] }));
     }
 
     return (
-        <ListItem secondaryAction={<TooltipIconButton action={handleRemoveContato} icon={<Delete />} title="Remover dos contatos do projeto" />}>
-            <ListItemText>{contato.nome}</ListItemText>
+        <ListItem secondaryAction={<TooltipIconButton action={handleRemoveCliente} icon={<Delete />} title="Remover dos colaboradores do projeto" />}>
+            <ListItemText>{colaborador.nome}</ListItemText>
         </ListItem>
     );
 }

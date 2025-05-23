@@ -3,14 +3,14 @@ import Add from "@mui/icons-material/Add";
 import BaseModal from "../BaseModal";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosBase from "@/axios/axios";
-import type { ColaboradorType } from "@/types";
+import type { ClienteType } from "@/types";
 import { useProjetoContext } from "@/contexts/projectContext";
 
-export default function AddContatoModal({ isOpen, close }: { isOpen: boolean; close: () => void }) {
-    const { data: colaboradores, isLoading } = useQuery({
-        queryKey: ["colaboradores"],
+export default function AddClienteModal({ isOpen, close }: { isOpen: boolean; close: () => void }) {
+    const { data: clientes, isLoading } = useQuery({
+        queryKey: ["clientes"],
         queryFn: async () => {
-            return await axiosBase("/colaborador").then((res) => res.data);
+            return await axiosBase("/cliente").then((res) => res.data);
         },
     });
 
@@ -18,9 +18,9 @@ export default function AddContatoModal({ isOpen, close }: { isOpen: boolean; cl
 
     const queryClient = useQueryClient();
 
-    async function handleAdd(colaboradorId: string) {
+    async function handleAdd(clienteId: string) {
         await axiosBase
-            .patch(`/projeto/${projeto!._id}/contato`, { colaboradorId, operation: "add" })
+            .patch(`/projeto/${projeto!._id}/cliente`, { clienteId, operation: "add" })
             .then(async () => await queryClient.invalidateQueries({ queryKey: ["projeto"] }));
     }
 
@@ -32,26 +32,26 @@ export default function AddContatoModal({ isOpen, close }: { isOpen: boolean; cl
         return null;
     }
 
-    const colaboradoresDisponiveis = colaboradores.filter(
-        (colaborador: ColaboradorType) => !projeto!.contatos.some((contato: ColaboradorType) => contato._id === colaborador._id)
+    const clientesDisponiveis = clientes.filter(
+        (cliente: ClienteType) => !projeto!.clientes.some((p_cliente: ClienteType) => p_cliente._id === cliente._id)
     );
 
     return (
-        <BaseModal isOpen={isOpen} close={handleClose} title="Adicionar contato ao projeto">
+        <BaseModal isOpen={isOpen} close={handleClose} title="Adicionar cliente ao projeto">
             <List>
-                {colaboradoresDisponiveis.map((colaborador: ColaboradorType) => {
+                {clientesDisponiveis.map((cliente: ClienteType) => {
                     return (
-                        <ListItemButton sx={{ display: "flex", justifyContent: "space-between" }} onClick={() => handleAdd(colaborador._id)}>
-                            {colaborador.nome}
+                        <ListItemButton sx={{ display: "flex", justifyContent: "space-between" }} onClick={() => handleAdd(cliente._id)}>
+                            {cliente.nome}
                             <ListItemIcon sx={{ width: "10px", display: "flex", justifyContent: "flex-end" }}>
                                 <Add />
                             </ListItemIcon>
                         </ListItemButton>
                     );
                 })}
-                {colaboradoresDisponiveis.length === 0 && (
+                {clientesDisponiveis.length === 0 && (
                     <ListItem>
-                        <ListItemText>Nenhum colaborador disponível</ListItemText>
+                        <ListItemText>Nenhum cliente disponível</ListItemText>
                     </ListItem>
                 )}
             </List>

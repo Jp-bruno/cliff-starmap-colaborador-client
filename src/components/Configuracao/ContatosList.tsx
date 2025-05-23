@@ -1,6 +1,6 @@
 import Add from "@mui/icons-material/Add";
 import { List, ListSubheader, ListItem, ListItemText } from "@mui/material";
-import type { ColaboradorType } from "types";
+import type { ColaboradorType } from "@/types";
 import TooltipIconButton from "../TooltipIconButton";
 import ConfiguracaoContatosListItem from "./ConfiguracaoContatosListItem";
 import AddContatoModal from "./AddContatoModal";

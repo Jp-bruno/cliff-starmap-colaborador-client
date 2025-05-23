@@ -8,7 +8,7 @@ import { Container, List, Paper } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useParams, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
-import type { ArquivoType } from "types";
+import type { ArquivoType } from "@/types";
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
 export const Route = createFileRoute("/_auth/_projeto/$slug/financeiro/$folderSlug/")({

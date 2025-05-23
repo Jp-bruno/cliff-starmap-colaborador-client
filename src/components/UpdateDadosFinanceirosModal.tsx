@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import BaseModal from "./BaseModal";
-import type { FaseType } from "types";
+import type { FaseType } from "@/types";
 import { Box, Button, Stack, TextField } from "@mui/material";
 import axiosBase from "@/axios/axios";
 import { useQueryClient } from "@tanstack/react-query";

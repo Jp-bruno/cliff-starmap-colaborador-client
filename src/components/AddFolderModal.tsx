@@ -3,7 +3,7 @@ import BaseModal from "./BaseModal";
 import axiosBase from "@/axios/axios";
 import { useState, type FormEvent } from "react";
 import { useProjetoContext } from "@/contexts/projectContext";
-import { queryClient } from "@/main";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function AddFolderModal({ folderSection, close }: { folderSection: "documentos" | "financeiro" | null; close: () => void }) {
     const [formData, setFormData] = useState<{ nome: string; descricao: string }>({
@@ -23,6 +23,8 @@ export default function AddFolderModal({ folderSection, close }: { folderSection
 
     const { faseSelecionada } = useProjetoContext();
 
+    const queryClient = useQueryClient();
+
     async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
         ev.preventDefault();
 
@@ -32,8 +34,7 @@ export default function AddFolderModal({ folderSection, close }: { folderSection
             .post("/pasta", { ...formData, fase: faseSelecionada?._id, projeto: faseSelecionada?.projeto, secao: folderSection })
             .then(async () => {
                 //TODO: dar feedback do request (sucesso, falha, etc)
-                console.log("to aqui");
-                await queryClient.invalidateQueries({ queryKey: ["projeto"] });
+                console.log(await queryClient.invalidateQueries({ queryKey: ["projeto"] }));
             })
             .finally(() => {
                 handleClose();

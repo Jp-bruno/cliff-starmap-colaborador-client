@@ -6,12 +6,12 @@ export default function HorizontalNavigation() {
     const { projeto } = useProjetoContext();
 
     const items = [
-        { title: "Início", link: `/${projeto.slug}/home` },
-        { title: "Visão geral", link: `/${projeto.slug}/visao-geral` },
-        { title: "Documentos", link: `/${projeto.slug}/documentos` },
-        { title: "Financeiro", link: `/${projeto.slug}/financeiro` },
-        { title: "Atualizações", link: `/${projeto.slug}/atualizacoes` },
-        { title: "Agenda", link: `/${projeto.slug}/agenda` },
+        { title: "Início", link: `/${projeto?.slug}/home` },
+        { title: "Visão geral", link: `/${projeto?.slug}/visao-geral` },
+        { title: "Documentos", link: `/${projeto?.slug}/documentos` },
+        { title: "Financeiro", link: `/${projeto?.slug}/financeiro` },
+        { title: "Atualizações", link: `/${projeto?.slug}/atualizacoes` },
+        { title: "Agenda", link: `/${projeto?.slug}/agenda` },
     ];
 
     return (
