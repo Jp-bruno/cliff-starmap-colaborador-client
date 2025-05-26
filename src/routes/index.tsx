@@ -116,7 +116,7 @@ function App() {
                     )}
                 </Stack>
             </Grid>
-            <Grid size={9} sx={{ backgroundImage: "url('/Painel_Estelar.png')", backgroundSize: "cover", display: "grid", placeItems: "center" }}>
+            <Grid size={9} sx={{ backgroundImage: "url('https://orion-website.b-cdn.net/Painel_Estelar.png')", backgroundSize: "cover", display: "grid", placeItems: "center" }}>
                 <img src="https://orion-website.b-cdn.net/orion-logo.png" alt="Orion" width={250} />
             </Grid>
         </Grid>
