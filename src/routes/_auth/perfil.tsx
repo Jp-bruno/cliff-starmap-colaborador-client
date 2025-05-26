@@ -21,6 +21,7 @@ function RouteComponent() {
         nome: user.nome,
         sobrenome: user.sobrenome,
         email: user.email,
+        telefone: user.telefone,
     });
 
     function handleSetFormData(field: string, value: string) {
@@ -35,6 +36,7 @@ function RouteComponent() {
             nome: user.nome,
             sobrenome: user.sobrenome,
             email: user.email,
+            telefone: user.telefone,
         });
         setUserModal(false);
     }
@@ -76,6 +78,10 @@ function RouteComponent() {
                         </Grid>
 
                         <Grid size={12}>
+                            <Typography>Telefone: {user.telefone}</Typography>
+                        </Grid>
+
+                        <Grid size={12}>
                             <Button variant="outlined" onClick={() => setUserModal(true)}>
                                 Editar dados
                             </Button>
@@ -109,6 +115,15 @@ function RouteComponent() {
                         value={formData.email}
                         required
                         label="Email"
+                        disabled={waitingCall}
+                    />
+                    <TextField
+                        size="small"
+                        type="text"
+                        onChange={(ev) => handleSetFormData("telefone", ev.target.value)}
+                        value={formData.telefone}
+                        required
+                        label="Telefone"
                         disabled={waitingCall}
                     />
                     <Button type="submit" variant="contained" disabled={waitingCall}>

@@ -1,4 +1,4 @@
-import { Home } from "@mui/icons-material";
+import { ArrowBack } from "@mui/icons-material";
 import { Menu, MenuItem, Stack } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
@@ -66,12 +66,12 @@ export default function AppBarMenu() {
                 open={profileMenuOpen}
                 onClose={handleCloseProfileMenu}
             >
-                <MenuItem onClick={() => navigate({to: "/perfil"})}>Perfil</MenuItem>
+                <MenuItem onClick={() => navigate({ to: "/perfil" })}>Perfil</MenuItem>
                 <MenuItem onClick={logout}>Sair</MenuItem>
             </Menu>
 
             <Stack direction="row" alignItems={"center"} spacing={2} sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <TooltipIconButton action={() => navigate({ to: "/projetos" })} icon={<Home />} title="Ir para projetos" />
+                <TooltipIconButton action={() => navigate({ to: "/projetos" })} icon={<ArrowBack />} title="Ir para projetos" />
                 <TooltipIconButton action={handleClickAdminMenu} icon={<AdminPanelSettingsIcon />} title="Área do administrador" />
                 <TooltipIconButton action={handleClickProfileMenu} icon={<AccountCircleOutlinedIcon />} title="" />
             </Stack>

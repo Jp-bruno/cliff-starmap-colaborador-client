@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ResetPasswordImport } from './routes/resetPassword'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthProjetosImport } from './routes/_auth/projetos'
@@ -29,6 +30,12 @@ import { Route as AuthProjetoSlugFinanceiroFolderSlugIndexImport } from './route
 import { Route as AuthProjetoSlugDocumentosFolderSlugIndexImport } from './routes/_auth/_projeto/$slug/documentos/$folderSlug/index'
 
 // Create/Update Routes
+
+const ResetPasswordRoute = ResetPasswordImport.update({
+  id: '/resetPassword',
+  path: '/resetPassword',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AuthRoute = AuthImport.update({
   id: '/_auth',
@@ -147,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
+    '/resetPassword': {
+      id: '/resetPassword'
+      path: '/resetPassword'
+      fullPath: '/resetPassword'
+      preLoaderRoute: typeof ResetPasswordImport
       parentRoute: typeof rootRoute
     }
     '/_auth/perfil': {
@@ -303,6 +317,7 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthRouteWithChildren
+  '/resetPassword': typeof ResetPasswordRoute
   '/perfil': typeof AuthPerfilRoute
   '/projetos': typeof AuthProjetosRoute
   '/$slug': typeof AuthProjetoSlugRouteWithChildren
@@ -322,6 +337,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof AuthRouteWithChildren
+  '/resetPassword': typeof ResetPasswordRoute
   '/perfil': typeof AuthPerfilRoute
   '/projetos': typeof AuthProjetosRoute
   '/$slug': typeof AuthProjetoSlugRouteWithChildren
@@ -342,6 +358,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteWithChildren
+  '/resetPassword': typeof ResetPasswordRoute
   '/_auth/perfil': typeof AuthPerfilRoute
   '/_auth/projetos': typeof AuthProjetosRoute
   '/_auth/_projeto/$slug': typeof AuthProjetoSlugRouteWithChildren
@@ -363,6 +380,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
+    | '/resetPassword'
     | '/perfil'
     | '/projetos'
     | '/$slug'
@@ -381,6 +399,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | ''
+    | '/resetPassword'
     | '/perfil'
     | '/projetos'
     | '/$slug'
@@ -399,6 +418,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_auth'
+    | '/resetPassword'
     | '/_auth/perfil'
     | '/_auth/projetos'
     | '/_auth/_projeto/$slug'
@@ -419,11 +439,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRouteWithChildren
+  ResetPasswordRoute: typeof ResetPasswordRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRouteWithChildren,
+  ResetPasswordRoute: ResetPasswordRoute,
 }
 
 export const routeTree = rootRoute
@@ -437,7 +459,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_auth"
+        "/_auth",
+        "/resetPassword"
       ]
     },
     "/": {
@@ -452,6 +475,9 @@ export const routeTree = rootRoute
         "/_auth/admin/projetos",
         "/_auth/admin/usuarios"
       ]
+    },
+    "/resetPassword": {
+      "filePath": "resetPassword.tsx"
     },
     "/_auth/perfil": {
       "filePath": "_auth/perfil.tsx",

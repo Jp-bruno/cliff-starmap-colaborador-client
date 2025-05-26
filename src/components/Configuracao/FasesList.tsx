@@ -1,4 +1,4 @@
-import { List, ListSubheader } from "@mui/material";
+import { List, ListItem, ListItemText, ListSubheader } from "@mui/material";
 import type { FaseType } from "@/types";
 import FaseListItem from "./FaseListItem";
 import TooltipIconButton from "../TooltipIconButton";
@@ -18,6 +18,11 @@ export default function FasesList({ fases }: { fases: FaseType[] }) {
             {fases.map((fase) => (
                 <FaseListItem key={fase._id} fase={fase} />
             ))}
+            {fases.length === 0 && (
+                <ListItem>
+                    <ListItemText secondary="Sem fases, adicione fases clicando no botao acima" />
+                </ListItem>
+            )}
             <AddFaseModal isOpen={addFaseModalState} close={() => setAddFaseModalState(false)} />
         </List>
     );

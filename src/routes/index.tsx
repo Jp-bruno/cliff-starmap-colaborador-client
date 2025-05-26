@@ -47,16 +47,13 @@ function App() {
         if (!forgotPw) {
             await axiosBase
                 .post("/auth", formData)
-                .then((res) => {
+                .then(async (res) => {
                     if (res.status === 200) {
-                        navigate({ to: "/projetos" });
+                        await navigate({ to: "/projetos" }).then(() => setLoadingAuth(false));
                     }
                 })
                 .catch((e) => {
                     window.alert(e.response.data.message);
-                })
-                .finally(() => {
-                    setLoadingAuth(false);
                 });
 
             return;
@@ -73,7 +70,7 @@ function App() {
     return (
         <Grid container>
             <Grid size={3}>
-                <Stack spacing={1} component="form" onSubmit={handleSubmit}>
+                <Stack spacing={1} component="form" onSubmit={handleSubmit} sx={{ height: "100vh", justifyContent: "center", p: 2 }}>
                     {forgotPw ? (
                         <>
                             <TextField
@@ -119,7 +116,9 @@ function App() {
                     )}
                 </Stack>
             </Grid>
-            <Grid size={9}>oi</Grid>
+            <Grid size={9} sx={{ backgroundImage: "url('/Painel_Estelar.png')", backgroundSize: "cover", display: "grid", placeItems: "center" }}>
+                <img src="https://orion-website.b-cdn.net/orion-logo.png" alt="Orion" width={250} />
+            </Grid>
         </Grid>
     );
 }
