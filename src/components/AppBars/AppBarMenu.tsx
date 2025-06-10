@@ -72,7 +72,9 @@ export default function AppBarMenu() {
 
             <Stack direction="row" alignItems={"center"} spacing={2} sx={{ display: "flex", justifyContent: "flex-end" }}>
                 <TooltipIconButton action={() => navigate({ to: "/projetos" })} icon={<ArrowBack />} title="Ir para projetos" />
-                <TooltipIconButton action={handleClickAdminMenu} icon={<AdminPanelSettingsIcon />} title="Área do administrador" />
+                {JSON.parse(localStorage.getItem("userData")!).administrador && (
+                    <TooltipIconButton action={handleClickAdminMenu} icon={<AdminPanelSettingsIcon />} title="Área do administrador" />
+                )}
                 <TooltipIconButton action={handleClickProfileMenu} icon={<AccountCircleOutlinedIcon />} title="" />
             </Stack>
         </>
