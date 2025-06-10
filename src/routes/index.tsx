@@ -1,5 +1,5 @@
 import axiosBase from "@/axios/axios";
-import { Button, Grid, Stack, TextField } from "@mui/material";
+import { Button, Grid, LinearProgress, Stack, TextField } from "@mui/material";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 
@@ -87,6 +87,7 @@ function App() {
                             <Button disabled={loadingAuth} size="small" variant="outlined" onClick={() => setForgotPw(false)}>
                                 Voltar
                             </Button>
+                            {loadingAuth && <LinearProgress />}
                         </>
                     ) : (
                         <>
@@ -112,11 +113,20 @@ function App() {
                             <Button disabled={loadingAuth} size="small" variant="text" onClick={() => setForgotPw(true)}>
                                 Esqueci a senha
                             </Button>
+                            {loadingAuth && <LinearProgress />}
                         </>
                     )}
                 </Stack>
             </Grid>
-            <Grid size={9} sx={{ backgroundImage: "url('https://orion-website.b-cdn.net/Painel_Estelar.png')", backgroundSize: "cover", display: "grid", placeItems: "center" }}>
+            <Grid
+                size={9}
+                sx={{
+                    backgroundImage: "url('https://orion-website.b-cdn.net/Painel_Estelar.png')",
+                    backgroundSize: "cover",
+                    display: "grid",
+                    placeItems: "center",
+                }}
+            >
                 <img src="https://orion-website.b-cdn.net/orion-logo.png" alt="Orion" width={250} />
             </Grid>
         </Grid>
