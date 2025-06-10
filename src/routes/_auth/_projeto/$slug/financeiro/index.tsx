@@ -53,10 +53,24 @@ function Financeiro() {
                 </Typography>
                 <BarChart
                     title="Comparativo"
-                    xAxis={[{ data: ["Valor projetado", "Valor orçado", "Valor real"] }]}
-                    series={[{ data: [fase!.valorProjetado, fase!.valorOrcado, fase!.valorReal] }]}
+                    xAxis={[{ data: ["Valor Projetado", "Valor Orçado", "Valor Real"] }]}
+                    series={[
+                        {
+                            data: [fase!.valorProjetado, fase!.valorOrcado, fase!.valorReal],
+                            valueFormatter: (value) => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(value)),
+                        },
+                    ]}
                     height={300}
-                    borderRadius={8}
+                    borderRadius={5}
+                    barLabel={(label) => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(label.value))}
+                    yAxis={[
+                        {
+                            valueFormatter(value: number) {
+                                return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(value));
+                            },
+                            width: 100,
+                        },
+                    ]}
                 />
                 <UpdateDadosFinanceirosModal
                     isOpen={dadosFinanceirosModalState}
