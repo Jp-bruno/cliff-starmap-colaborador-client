@@ -10,11 +10,13 @@ export default function AddUserModal({ isOpen, close, tipo }: { isOpen: boolean;
         sobrenome: string;
         email: string;
         administrador: number;
+        descricao: string;
     }>({
         nome: "",
         sobrenome: "",
         email: "",
         administrador: 0,
+        descricao: ""
     });
 
     const [loadingApiCall, setLoadingApiCall] = useState(false);
@@ -44,6 +46,7 @@ export default function AddUserModal({ isOpen, close, tipo }: { isOpen: boolean;
             sobrenome: "",
             email: "",
             administrador: 0,
+            descricao: ""
         });
         close();
     }
@@ -85,13 +88,27 @@ export default function AddUserModal({ isOpen, close, tipo }: { isOpen: boolean;
                 </Grid>
 
                 {tipo === "funcionário" && (
-                    <Grid size={12}>
-                        <FormControlLabel
-                            control={<Checkbox onChange={(ev) => handleSetFormData("administrador", Number(ev.target.checked))} />}
-                            label="Administrador"
-                            disabled={loadingApiCall}
-                        />
-                    </Grid>
+                    <>
+                        <Grid size={12}>
+                            <TextField
+                                label="Descrição (descrição da função exercida - aparecerá nos contatos)"
+                                required
+                                onChange={(ev) => handleSetFormData("descricao", ev.target.value)}
+                                fullWidth
+                                size="small"
+                                disabled={loadingApiCall}
+                                helperText={`Máximo 50 caracteres (${formData.descricao.length})`}
+                            />
+                        </Grid>
+
+                        <Grid size={12}>
+                            <FormControlLabel
+                                control={<Checkbox onChange={(ev) => handleSetFormData("administrador", Number(ev.target.checked))} />}
+                                label="Administrador"
+                                disabled={loadingApiCall}
+                            />
+                        </Grid>
+                    </>
                 )}
 
                 {loadingApiCall ? (
