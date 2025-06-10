@@ -52,16 +52,31 @@ export default function EditItemAgendaModal({ itemAgenda, close }: { itemAgenda:
     return (
         <BaseModal isOpen={!!itemAgenda} close={handleClose} title="Adicionar item à agenda da fase">
             <Stack component="form" onSubmit={handleSubmit} spacing={1}>
-                <TextField value={formData.titulo} label="Título" onChange={(ev) => handleSetFormData("titulo", ev.target.value)} required />
+                <TextField
+                    value={formData.titulo}
+                    helperText={`Máximo 20 caracteres (${formData.titulo.length})`}
+                    label="Título"
+                    size="small"
+                    onChange={(ev) => handleSetFormData("titulo", ev.target.value)}
+                    required
+                />
                 <TextField
                     value={formData.data.slice(0, 10)}
                     label="Data"
+                    size="small"
                     onChange={(ev) => handleSetFormData("data", ev.target.value)}
                     type="date"
                     required
                     slotProps={{ inputLabel: { shrink: true } }}
                 />
-                <TextField value={formData.descricao} label="Descrição" onChange={(ev) => handleSetFormData("descricao", ev.target.value)} required />
+                <TextField
+                    value={formData.descricao}
+                    size="small"
+                    label="Descrição"
+                    helperText={`Máximo 50 caracteres (${formData.descricao.length})`}
+                    onChange={(ev) => handleSetFormData("descricao", ev.target.value)}
+                    required
+                />
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Button variant="contained" type="submit">
                         Enviar

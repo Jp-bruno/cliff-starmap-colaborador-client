@@ -37,22 +37,38 @@ export default function AddItemAgendaModal({ isOpen, close }: { isOpen: boolean;
                 //TODO: dar feedback do request (sucesso, falha, etc)
                 await queryClient.invalidateQueries({ queryKey: [`fase-${faseSelecionada?._id}-agenda`] });
                 await queryClient.invalidateQueries({ queryKey: [`projeto`] });
+                handleClose();
             })
-            .finally(() => handleClose());
+            .catch((e) => {
+                window.alert(e.response.data.message);
+            });
     }
 
     return (
         <BaseModal isOpen={isOpen} close={handleClose} title="Adicionar item à agenda da fase">
             <Stack component="form" onSubmit={handleSubmit} spacing={1}>
-                <TextField label="Título" onChange={(ev) => handleSetFormData("titulo", ev.target.value)} required />
+                <TextField
+                    label="Título"
+                    size="small"
+                    helperText={`Máximo 20 caracteres (${formData.titulo.length})`}
+                    onChange={(ev) => handleSetFormData("titulo", ev.target.value)}
+                    required
+                />
                 <TextField
                     label="Data"
                     onChange={(ev) => handleSetFormData("data", ev.target.value)}
                     type="date"
                     required
                     slotProps={{ inputLabel: { shrink: true } }}
+                    size="small"
                 />
-                <TextField label="Descrição" onChange={(ev) => handleSetFormData("descricao", ev.target.value)} required />
+                <TextField
+                    label="Descrição"
+                    size="small"
+                    helperText={`Máximo 50 caracteres (${formData.descricao.length})`}
+                    onChange={(ev) => handleSetFormData("descricao", ev.target.value)}
+                    required
+                />
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Button variant="contained" type="submit">
                         Enviar
