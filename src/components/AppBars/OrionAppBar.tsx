@@ -7,6 +7,7 @@ import AddFaseModal from "../AddFaseModal";
 import { useProjetoContext } from "@/contexts/projectContext";
 import type { FaseType } from "@/types";
 import AppBarMenu from "./AppBarMenu";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
 
 interface AppBarProps {
     open?: boolean;
@@ -49,7 +50,22 @@ const AppBar = styled(MuiAppBar, {
 export default function OrionAppBar({ open }: { open: boolean }) {
     const [addFaseModalState, setAddFaseModalState] = useState(false);
 
-    const { projeto, handleSetFaseSelecionada, faseSelecionada } = useProjetoContext();
+    const { projeto, setFaseSelecionada, faseSelecionada } = useProjetoContext();
+
+    const { location } = useRouterState();
+
+    const navigate = useNavigate();
+
+    function handleSetFaseSelecionada(_id: string) {
+        if (location.searchStr) {
+            const paths = location.pathname.split("/");
+            navigate({ to: `/${paths[1]}/${paths[2]}` });
+        }
+
+        setFaseSelecionada(() => {
+            return projeto!.fases.find((p_fase: FaseType) => p_fase._id === _id);
+        });
+    }
 
     return (
         <AppBar position="fixed" open={open} elevation={1}>
