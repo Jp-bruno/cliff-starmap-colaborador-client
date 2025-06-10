@@ -45,6 +45,7 @@ export default function ItemAgendaListItem({ itemAgenda }: { itemAgenda: ItemAge
                         openDeletePrompt({
                             message: "Tem certeza que deseja excluir este item de sua agenda?",
                             cb: () => handleDeleteItemAgenda(),
+                            resourceType: "compromisso"
                         });
                     }}
                 >

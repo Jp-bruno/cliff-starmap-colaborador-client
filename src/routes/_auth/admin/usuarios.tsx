@@ -51,8 +51,6 @@ function Usuarios() {
         return null;
     }
 
-    // const user = JSON.parse(localStorage.getItem("userData")!);
-
     return (
         <Container sx={{ py: 12 }}>
             <AddUserModal isOpen={Boolean(addUserModalState)} close={() => setAddUserModalState(null)} tipo={addUserModalState!} />
@@ -79,6 +77,7 @@ function Usuarios() {
                                                     openConfirmDeleteModal({
                                                         cb: () => handleDelete(colaborador._id, "funcionario"),
                                                         message: `Tem certeza que deseja excluir o usuário ${colaborador.nome} ${colaborador.sobrenome}?`,
+                                                        resourceType: "usuário",
                                                     })
                                                 }
                                                 // disabled={user._id === colaborador._id}
@@ -114,6 +113,7 @@ function Usuarios() {
                                                     openConfirmDeleteModal({
                                                         cb: () => handleDelete(cliente._id, "cliente"),
                                                         message: `Tem certeza que deseja excluir o usuário ${cliente.nome} ${cliente.sobrenome}?`,
+                                                        resourceType: "usuário",
                                                     })
                                                 }
                                                 // disabled={user._id === cliente._id}

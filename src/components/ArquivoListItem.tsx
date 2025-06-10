@@ -66,6 +66,7 @@ export default function ArquivoListItem({ arquivo }: { arquivo: ArquivoType }) {
                             message: `Tem certeza que deseja excluir o arquivo ${arquivo.nome}?`,
                             extraMessage: "Aviso: esta ação é irreversível",
                             cb: () => handleDeleteFile(),
+                            resourceType: "arquivo"
                         })
                     }
                     title={"Excluir"}

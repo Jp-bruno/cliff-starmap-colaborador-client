@@ -43,7 +43,13 @@ export default function Folder({ folder }: { folder: PastaType }) {
                 >
                     <Grid size={10}>
                         <CardActionArea
-                            onClick={() => navigate({ to: `./${folder.slug}`, search: { folderId: folder._id } })}
+                            onClick={() =>
+                                navigate({
+                                    to: `./${folder.slug}`,
+                                    search: { folderId: folder._id },
+                                    mask: { to: `./${folder.slug}` },
+                                })
+                            }
                             sx={{
                                 width: "100%",
                                 height: "100%",
@@ -67,22 +73,23 @@ export default function Folder({ folder }: { folder: PastaType }) {
                             <MenuItem
                                 onClick={() => {
                                     handleClose();
-                                    openDeletePrompt({
-                                        message: "Tem certeza que deseja excluir esta pasta?",
-                                        extraMessage: "Aviso: todos os arquivos desta pasta também serão excluídos",
-                                        cb: () => handleDeleteFolder(),
-                                    });
-                                }}
-                            >
-                                Excluir
-                            </MenuItem>
-                            <MenuItem
-                                onClick={() => {
-                                    handleClose();
                                     setEditFolderModalState(folder);
                                 }}
                             >
                                 Editar
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => {
+                                    handleClose();
+                                    openDeletePrompt({
+                                        message: "Tem certeza que deseja excluir esta pasta?",
+                                        extraMessage: "Aviso: todos os arquivos desta pasta também serão excluídos",
+                                        cb: () => handleDeleteFolder(),
+                                        resourceType: "pasta"
+                                    });
+                                }}
+                            >
+                                Excluir
                             </MenuItem>
                         </Menu>
                         <EditFolderModal folder={editFolderModalState} close={() => setEditFolderModalState(null)} />

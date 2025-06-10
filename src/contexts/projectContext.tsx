@@ -8,7 +8,7 @@ type ProjetoContextType = {
     projeto: ProjetoType | null;
     faseSelecionada: FaseType | null;
     setFaseSelecionada: Dispatch<any>;
-    handleSetFaseSelecionada: (_id: string) => void;
+    handleSetFaseSelecionada: (_id: string | null) => void;
     refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
 };
 
@@ -44,7 +44,7 @@ export default function ProjectContextProvider({ children, slug }: { children: R
         notifyOnChangeProps: "all",
     });
 
-    function handleSetFaseSelecionada(_id: string) {
+    function handleSetFaseSelecionada(_id: string | null) {
         setFaseSelecionada(() => {
             return projeto.fases.find((p_fase: FaseType) => p_fase._id === _id);
         });

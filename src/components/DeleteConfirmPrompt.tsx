@@ -11,7 +11,7 @@ export default function DeleteConfirmPrompt() {
         setDisable(true);
         await state?.cb!().then(() => {
             setDisable(false);
-            close()
+            close();
         });
     }
 
@@ -19,11 +19,17 @@ export default function DeleteConfirmPrompt() {
         <Modal open={!!state} onClose={close} sx={{ display: "grid", placeItems: "center" }}>
             <Paper sx={{ textAlign: "center", maxWidth: "500px" }}>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 1, p: 2 }}>
-                    <Typography>{state?.message}</Typography>
-                    {state?.extraMessage && (
-                        <Typography sx={{ textAlign: "center" }} variant="caption">
-                            {state?.extraMessage}
-                        </Typography>
+                    {disable ? (
+                        <Typography>Excluindo {state?.resourceType}</Typography>
+                    ) : (
+                        <>
+                            <Typography>{state?.message}</Typography>
+                            {state?.extraMessage && (
+                                <Typography sx={{ textAlign: "center" }} variant="caption">
+                                    {state?.extraMessage}
+                                </Typography>
+                            )}
+                        </>
                     )}
                 </Box>
 

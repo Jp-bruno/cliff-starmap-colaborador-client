@@ -32,6 +32,7 @@ export default function ProjetosListItem({ projeto }: { projeto: ProjetoType }) 
                         cb: () => handleDelete(projeto._id),
                         message: `Tem certeza que deseja excluir o projeto ${projeto.nome}?`,
                         extraMessage: "Todos os arquivos também serão excluídos!",
+                        resourceType: "projeto"
                     })
                 }
                 icon={<Delete />}

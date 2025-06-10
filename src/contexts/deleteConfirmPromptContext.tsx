@@ -1,12 +1,32 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 
+enum ResourceTypeEnums {
+    pasta = "pasta",
+    arquivo = "arquivo",
+    usuário = "usuário",
+    projeto = "projeto",
+    compromisso = "compromisso",
+    fase = "fase",
+}
+
 type DeleteConfirmPromptContextType = {
     state: {
         message: string;
         extraMessage?: string;
         cb: () => Promise<void>;
+        resourceType: keyof typeof ResourceTypeEnums;
     } | null;
-    open: ({ message, cb, extraMessage }: { message: string; cb: () => Promise<void>; extraMessage?: string }) => void;
+    open: ({
+        message,
+        cb,
+        extraMessage,
+        resourceType,
+    }: {
+        message: string;
+        extraMessage?: string;
+        cb: () => Promise<void>;
+        resourceType: keyof typeof ResourceTypeEnums;
+    }) => void;
     close: () => void;
 };
 
@@ -17,13 +37,25 @@ export default function DeleteConfirmPromptContextProvider({ children }: { child
         message: string;
         extraMessage?: string;
         cb: () => Promise<void>;
+        resourceType: keyof typeof ResourceTypeEnums;
     } | null>(null);
 
-    function open({ message, cb, extraMessage }: { message: string; cb: () => Promise<void>; extraMessage?: string }) {
+    function open({
+        message,
+        cb,
+        extraMessage,
+        resourceType,
+    }: {
+        message: string;
+        cb: () => Promise<void>;
+        extraMessage?: string;
+        resourceType: keyof typeof ResourceTypeEnums;
+    }) {
         setState({
             message,
             extraMessage,
             cb,
+            resourceType,
         });
     }
 

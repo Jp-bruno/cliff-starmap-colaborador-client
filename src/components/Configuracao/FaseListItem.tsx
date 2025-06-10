@@ -27,7 +27,7 @@ export default function FaseListItem({ fase }: { fase: FaseType }) {
 
     async function handleDeleteFase(faseId: string) {
         if (faseId === faseSelecionada!._id) {
-            handleSetFaseSelecionada(projeto.fases.length > 0 ? projeto.fases[0]._id : null);
+            handleSetFaseSelecionada(projeto!.fases.length > 0 ? projeto!.fases[0]._id : null);
         }
 
         await axiosBase.delete(`/fase/${faseId}`).then(async () => {
@@ -52,6 +52,7 @@ export default function FaseListItem({ fase }: { fase: FaseType }) {
                             message: "Tem certeza que deseja excluir esta fase?",
                             extraMessage: "Aviso: todos os arquivos, pastas e itens de agenda também serão excluídos",
                             cb: () => handleDeleteFase(fase._id),
+                            resourceType: "fase"
                         });
                     }}
                 >
