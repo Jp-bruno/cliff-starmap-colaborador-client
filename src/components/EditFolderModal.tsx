@@ -39,6 +39,7 @@ export default function EditFolderModal({ folder, close }: { folder: PastaType |
                 await queryClient.invalidateQueries({ queryKey: ["projeto"] });
             })
             .finally(() => {
+                setWaitingRequest(false)
                 handleClose();
             });
     }
