@@ -59,7 +59,11 @@ export default function ItemAgendaListItem({ itemAgenda }: { itemAgenda: ItemAge
                     Editar
                 </MenuItem>
             </Menu>
-            <ListItemText secondary={itemAgenda.data}>
+            <ListItemText
+                secondary={new Intl.DateTimeFormat("pt-BR", { month: "long", day: "2-digit", year: "numeric", timeZone: "America/Sao_Paulo" }).format(
+                    new Date(itemAgenda.data).setHours(25)
+                )}
+            >
                 {itemAgenda.titulo} - {itemAgenda.descricao}
             </ListItemText>
             <EditItemAgendaModal itemAgenda={editItemAgendaModalState} close={() => setEditItemAgendaModalState(null)} />
