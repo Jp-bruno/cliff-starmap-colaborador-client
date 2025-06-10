@@ -3,12 +3,13 @@ import { Box, Typography, useTheme, Container, List, ListItemButton } from "@mui
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import type { ProjetoType } from "@/types";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_auth/projetos")({
-    component: RouteComponent,
+    component: Projetos,
 });
 
-function RouteComponent() {
+function Projetos() {
     const theme = useTheme();
 
     const { data: projetos, isLoading } = useQuery({
@@ -19,6 +20,8 @@ function RouteComponent() {
     });
 
     const navigate = useNavigate();
+
+    const [loadingPage, setLoadingPage] = useState(false);
 
     return (
         <>
@@ -32,8 +35,10 @@ function RouteComponent() {
                         <List>
                             {projetos.map((projeto: ProjetoType) => (
                                 <ListItemButton
+                                    disabled={loadingPage}
                                     key={projeto._id}
                                     onClick={() => {
+                                        setLoadingPage(true);
                                         navigate({ to: "/$slug/home", params: { slug: projeto.slug } });
                                     }}
                                 >
@@ -43,6 +48,7 @@ function RouteComponent() {
                         </List>
                     </>
                 )}
+                {loadingPage && <Typography>Carregando projeto, aguarde...</Typography>}
             </Container>
         </>
     );
