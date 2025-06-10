@@ -33,7 +33,7 @@ export default function Folder({ folder }: { folder: PastaType }) {
 
     return (
         <Grid size={4}>
-            <Card sx={{ width: "100%", height: "100%", borderRadius: 4, backgroundColor: theme.palette.primary[500], color: "white" }}>
+            <Card sx={{ width: "100%", aspectRatio: "3/1", borderRadius: 4, backgroundColor: theme.palette.primary[500], color: "white" }}>
                 <Grid
                     container
                     sx={{
