@@ -62,13 +62,13 @@ export default function AddFaseModal({ isOpen, close }: { isOpen: boolean; close
                         required
                         label="Nome"
                         size="small"
-                        helperText="Máximo 20 caracteres"
+                        helperText={`Máximo 20 caracteres (${formData.nome.length})`}
                     />
                     <TextField
                         onChange={(ev) => handleSetFormData("descricao", ev.target.value)}
                         label="Descrição"
                         size="small"
-                        helperText="Máximo 30 caracteres"
+                        helperText={`Máximo 30 caracteres (${formData.descricao.length})`}
                     />
                     <TextField
                         onChange={(ev) =>
