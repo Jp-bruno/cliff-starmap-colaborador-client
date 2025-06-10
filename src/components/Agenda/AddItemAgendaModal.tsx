@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import BaseModal from "../BaseModal";
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, LinearProgress, Stack, TextField } from "@mui/material";
 import axiosBase from "@/axios/axios";
 import { useProjetoContext } from "@/contexts/projectContext";
 import { useQueryClient } from "@tanstack/react-query";
@@ -13,6 +13,8 @@ export default function AddItemAgendaModal({ isOpen, close }: { isOpen: boolean;
     });
 
     const { faseSelecionada } = useProjetoContext();
+
+    const [loadingApiCall, setLoadingApiCall] = useState(false);
 
     const queryClient = useQueryClient();
 
@@ -31,6 +33,8 @@ export default function AddItemAgendaModal({ isOpen, close }: { isOpen: boolean;
     async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
         ev.preventDefault();
 
+        setLoadingApiCall(true);
+
         await axiosBase
             .post("/itemAgenda", { ...formData, fase: faseSelecionada?._id, projeto: faseSelecionada?.projeto })
             .then(async () => {
@@ -41,6 +45,9 @@ export default function AddItemAgendaModal({ isOpen, close }: { isOpen: boolean;
             })
             .catch((e) => {
                 window.alert(e.response.data.message);
+            })
+            .finally(() => {
+                setLoadingApiCall(false);
             });
     }
 
@@ -53,6 +60,7 @@ export default function AddItemAgendaModal({ isOpen, close }: { isOpen: boolean;
                     helperText={`Máximo 20 caracteres (${formData.titulo.length})`}
                     onChange={(ev) => handleSetFormData("titulo", ev.target.value)}
                     required
+                    disabled={loadingApiCall}
                 />
                 <TextField
                     label="Data"
@@ -61,6 +69,7 @@ export default function AddItemAgendaModal({ isOpen, close }: { isOpen: boolean;
                     required
                     slotProps={{ inputLabel: { shrink: true } }}
                     size="small"
+                    disabled={loadingApiCall}
                 />
                 <TextField
                     label="Descrição"
@@ -68,15 +77,17 @@ export default function AddItemAgendaModal({ isOpen, close }: { isOpen: boolean;
                     helperText={`Máximo 50 caracteres (${formData.descricao.length})`}
                     onChange={(ev) => handleSetFormData("descricao", ev.target.value)}
                     required
+                    disabled={loadingApiCall}
                 />
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Button variant="contained" type="submit">
+                    <Button variant="contained" type="submit" disabled={loadingApiCall}>
                         Enviar
                     </Button>
-                    <Button variant="outlined" color="error" onClick={handleClose}>
+                    <Button variant="outlined" color="error" onClick={handleClose} disabled={loadingApiCall}>
                         Cancelar
                     </Button>
                 </Box>
+                {loadingApiCall && <LinearProgress />}
             </Stack>
         </BaseModal>
     );

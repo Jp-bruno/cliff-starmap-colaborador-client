@@ -1,5 +1,5 @@
 import axiosBase from "@/axios/axios";
-import { Stack, TextField, Box, Button } from "@mui/material";
+import { Stack, TextField, Box, Button, LinearProgress } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState, type FormEvent } from "react";
 import BaseModal from "../BaseModal";
@@ -13,6 +13,8 @@ export default function EditItemAgendaModal({ itemAgenda, close }: { itemAgenda:
     });
 
     const queryClient = useQueryClient();
+
+    const [loadingApiCall, setLoadingApiCall] = useState(false);
 
     useEffect(() => {
         if (itemAgenda) {
@@ -39,14 +41,17 @@ export default function EditItemAgendaModal({ itemAgenda, close }: { itemAgenda:
     async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
         ev.preventDefault();
 
+        setLoadingApiCall(true);
+
         await axiosBase
             .patch(`/itemAgenda/${itemAgenda!._id}`, formData)
             .then(async () => {
                 //TODO: dar feedback do request (sucesso, falha, etc)
                 await queryClient.invalidateQueries({ queryKey: [`fase-${itemAgenda!.fase}-agenda`] });
                 await queryClient.invalidateQueries({ queryKey: [`projeto`] });
+                handleClose();
             })
-            .finally(() => handleClose());
+            .finally(() => setLoadingApiCall(false));
     }
 
     return (
@@ -59,6 +64,7 @@ export default function EditItemAgendaModal({ itemAgenda, close }: { itemAgenda:
                     size="small"
                     onChange={(ev) => handleSetFormData("titulo", ev.target.value)}
                     required
+                    disabled={loadingApiCall}
                 />
                 <TextField
                     value={formData.data.slice(0, 10)}
@@ -68,6 +74,7 @@ export default function EditItemAgendaModal({ itemAgenda, close }: { itemAgenda:
                     type="date"
                     required
                     slotProps={{ inputLabel: { shrink: true } }}
+                    disabled={loadingApiCall}
                 />
                 <TextField
                     value={formData.descricao}
@@ -76,15 +83,17 @@ export default function EditItemAgendaModal({ itemAgenda, close }: { itemAgenda:
                     helperText={`Máximo 50 caracteres (${formData.descricao.length})`}
                     onChange={(ev) => handleSetFormData("descricao", ev.target.value)}
                     required
+                    disabled={loadingApiCall}
                 />
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Button variant="contained" type="submit">
+                    <Button variant="contained" type="submit" disabled={loadingApiCall}>
                         Enviar
                     </Button>
-                    <Button variant="outlined" color="error" onClick={handleClose}>
+                    <Button variant="outlined" color="error" onClick={handleClose} disabled={loadingApiCall}>
                         Cancelar
                     </Button>
                 </Box>
+                {loadingApiCall && <LinearProgress />}
             </Stack>
         </BaseModal>
     );
