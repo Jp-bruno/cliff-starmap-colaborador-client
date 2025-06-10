@@ -6,7 +6,7 @@ export type ProjetoType = {
     clientes: any;
     colaboradores: any;
     slug: string;
-    proximosEventos: EventoType[];
+    proximosEventos: ItemAgendaType[];
 };
 
 export type FaseType = {
@@ -72,12 +72,6 @@ export type ClienteType = {
     projetos: ProjetoType[];
     atividades: string[];
     descricao: string;
-};
-
-export type EventoType = {
-    _id: string;
-    titulo: string;
-    data: string;
 };
 
 export type ArquivoType = {

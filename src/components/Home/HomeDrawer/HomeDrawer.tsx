@@ -3,7 +3,7 @@ import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRound
 import CompromissoItem from "./CompromissoItem";
 import ContatosItem from "./ContatosItem";
 import { useProjetoContext } from "@/contexts/projectContext";
-import type { ColaboradorType } from "@/types";
+import type { ColaboradorType, ItemAgendaType } from "@/types";
 
 // const drawerWidth = 340;
 
@@ -97,11 +97,13 @@ export default function HomeDrawer() {
 
     const { projeto } = useProjetoContext();
 
-    const proximosEventos = projeto!.proximosEventos.map((evento) => {
+    const proximosEventos = projeto!.proximosEventos.map((evento: ItemAgendaType) => {
         return {
             titulo: evento.titulo,
+            descricao: evento.descricao,
             dia: (new Date(evento.data).getDate() + 1).toString(),
             mes: new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(new Date(evento.data)),
+            ano: new Date(evento.data).getFullYear().toString(),
         };
     });
 
