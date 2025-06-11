@@ -54,6 +54,7 @@ function App() {
                 })
                 .catch((e) => {
                     window.alert(e.response.data.message);
+                    setLoadingAuth(false)
                 });
 
             return;
@@ -64,6 +65,8 @@ function App() {
                 window.alert("Verifique sua caixa de entrada");
                 setForgotPw(false);
             }
+
+            setLoadingAuth(false)
         });
     }
 
