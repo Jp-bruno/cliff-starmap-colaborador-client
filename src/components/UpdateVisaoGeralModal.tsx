@@ -7,6 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import axios from "axios";
 import LinearProgressBar from "./LinearProgressBar";
+
 const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
     clipPath: "inset(50%)",
@@ -19,7 +20,7 @@ const VisuallyHiddenInput = styled("input")({
     width: 1,
 });
 
-export default function UpdateDadosFinanceirosModal({
+export default function UpdateVisaoGeralModal({
     isOpen,
     close,
     faseSelecionada,
@@ -42,7 +43,7 @@ export default function UpdateDadosFinanceirosModal({
         setFileUploadProgress(1);
 
         await axiosBase
-            .patch(`/fase/${faseSelecionada._id}/financeiro`, { nome: file?.name, mimetype: file?.type })
+            .patch(`/fase/${faseSelecionada._id}/visaoGeral`, { nome: file?.name, mimetype: file?.type })
             .then(async (res) => {
                 //TODO: dar feedback do request (sucesso, falha, etc)
                 if (res.data.signedUrl) {
@@ -64,7 +65,7 @@ export default function UpdateDadosFinanceirosModal({
     }
 
     return (
-        <BaseModal isOpen={isOpen} close={close} title="Editar dados financeiros">
+        <BaseModal isOpen={isOpen} close={close} title="Editar dados da visão geral">
             <Stack component="form" onSubmit={handleSubmit} spacing={1}>
                 <Button component="label" variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
                     Anexar arquivo

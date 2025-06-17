@@ -18,9 +18,18 @@ export type FaseType = {
     financeiro: any;
     atualizacoes: any;
     agenda: ItemAgendaType[];
-    valorProjetado: number;
-    valorOrcado: number;
-    valorReal: number;
+    financeiroResumo: {
+        nome: string;
+        nomeR2: string;
+        mimetype: string;
+        url: string;
+    };
+    visaoGeral: {
+        nome: string;
+        nomeR2: string;
+        mimetype: string;
+        url: string;
+    };
     projeto: string;
 };
 

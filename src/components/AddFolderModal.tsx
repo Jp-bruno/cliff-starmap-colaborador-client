@@ -44,6 +44,7 @@ export default function AddFolderModal({ folderSection, close }: { folderSection
             .then(async () => {
                 //TODO: dar feedback do request (sucesso, falha, etc)
                 await queryClient.invalidateQueries({ queryKey: ["projeto"] });
+                await queryClient.invalidateQueries({ queryKey: [`arquivos-pasta:${state.location.search.folderId}`] });
             })
             .finally(() => {
                 handleClose();

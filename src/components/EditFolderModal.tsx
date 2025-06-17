@@ -4,6 +4,7 @@ import axiosBase from "@/axios/axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState, type FormEvent } from "react";
 import type { PastaType } from "@/types";
+import { useRouterState } from "@tanstack/react-router";
 
 export default function EditFolderModal({ folder, close }: { folder: PastaType | null; close: () => void }) {
     const [formData, setFormData] = useState<{ nome: string; descricao: string }>({
@@ -27,6 +28,8 @@ export default function EditFolderModal({ folder, close }: { folder: PastaType |
 
     const queryClient = useQueryClient();
 
+    const state = useRouterState();
+
     async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
         ev.preventDefault();
 
@@ -37,9 +40,13 @@ export default function EditFolderModal({ folder, close }: { folder: PastaType |
             .then(async () => {
                 //TODO: dar feedback do request (sucesso, falha, etc)
                 await queryClient.invalidateQueries({ queryKey: ["projeto"] });
+
+                if (state.location.searchStr) {
+                    await queryClient.invalidateQueries({ queryKey: [`arquivos-pasta:${state.location.search.folderId}`] });
+                }
             })
             .finally(() => {
-                setWaitingRequest(false)
+                setWaitingRequest(false);
                 handleClose();
             });
     }

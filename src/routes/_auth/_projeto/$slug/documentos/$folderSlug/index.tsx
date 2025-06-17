@@ -4,14 +4,15 @@ import ArquivoListItem from "@/components/ArquivoListItem";
 import FolderNavigationBreadcrumbs from "@/components/FolderNavigationBreadcrumbs";
 import HorizontalNavigation from "@/components/HorizontalNavigation/HorizontalNavigation";
 import TooltipIconButton from "@/components/TooltipIconButton";
-import { Container, List, ListItemButton, ListItemText, Paper } from "@mui/material";
+import { Container, Grid, List, ListItem, ListItemText, ListSubheader, Paper } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { createFileRoute, useNavigate, useParams, useSearch } from "@tanstack/react-router";
+import { createFileRoute, useParams, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
 import type { ArquivoType, PastaType } from "@/types";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import AddFolderModal from "@/components/AddFolderModal";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
+import FolderListItem from "@/components/Documentos/FolderListItem";
 
 export const Route = createFileRoute("/_auth/_projeto/$slug/documentos/$folderSlug/")({
     component: RouteComponent,
@@ -24,8 +25,6 @@ function RouteComponent() {
     const { slug } = useParams({ from: "/_auth/_projeto/$slug/documentos/$folderSlug/" });
 
     const { folderId } = useSearch({ from: "/_auth/_projeto/$slug/documentos/$folderSlug/" });
-
-    const navigate = useNavigate();
 
     const [addFileModalState, setAddFileModalState] = useState(false);
 
@@ -45,7 +44,7 @@ function RouteComponent() {
     }
 
     return (
-        <Container>
+        <Container sx={{ pb: 10 }}>
             <HorizontalNavigation />
 
             <Paper sx={{ my: 3, p: 1 }} elevation={8}>
@@ -62,29 +61,39 @@ function RouteComponent() {
 
             <FolderNavigationBreadcrumbs prevFolders={data.pastasPai} pastaAtual={data.pastaAtual} projetoSlug={slug} section="documentos" />
 
-            <List sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
-                {data.arquivos.map((arquivo: ArquivoType) => (
-                    <ArquivoListItem key={arquivo._id} arquivo={arquivo} />
-                ))}
-            </List>
+            <Grid container spacing={2}>
+                <Grid size={6}>
+                    <Paper sx={{ p: 2, mt: 2, pt: 0 }} elevation={8}>
+                        <List sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
+                            <ListSubheader>Arquivos</ListSubheader>
+                            {data.arquivos.map((arquivo: ArquivoType) => (
+                                <ArquivoListItem key={arquivo._id} arquivo={arquivo} />
+                            ))}
+                            {data.arquivos.length === 0 && (
+                                <ListItem>
+                                    <ListItemText secondary="Nenhum arquivo nesta pasta"></ListItemText>
+                                </ListItem>
+                            )}
+                        </List>
+                    </Paper>
+                </Grid>
 
-            <List>
-                {data.pastas.map((pasta: PastaType) => (
-                    <ListItemButton
-                        key={pasta._id}
-                        onClick={() =>
-                            navigate({
-                                to: "/$slug/documentos/$folderSlug",
-                                params: { folderSlug: pasta.slug, slug },
-                                search: { folderId: pasta._id },
-                                mask: { to: `/$slug/documentos`, params: { slug } },
-                            })
-                        }
-                    >
-                        <ListItemText>{pasta.nome}</ListItemText>
-                    </ListItemButton>
-                ))}
-            </List>
+                <Grid size={6}>
+                    <Paper sx={{ p: 2, mt: 2, pt: 0 }} elevation={8}>
+                        <List sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
+                            <ListSubheader>Pastas</ListSubheader>
+                            {data.pastas.map((pasta: PastaType) => (
+                                <FolderListItem key={pasta._id} pasta={pasta} projetoSlug={slug} />
+                            ))}
+                            {data.pastas.length === 0 && (
+                                <ListItem>
+                                    <ListItemText secondary="Nenhuma subpasta nesta pasta"></ListItemText>
+                                </ListItem>
+                            )}
+                        </List>
+                    </Paper>
+                </Grid>
+            </Grid>
         </Container>
     );
 }

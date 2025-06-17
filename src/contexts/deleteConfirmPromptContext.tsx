@@ -7,6 +7,7 @@ enum ResourceTypeEnums {
     projeto = "projeto",
     compromisso = "compromisso",
     fase = "fase",
+    relatorio = "relatório"
 }
 
 type DeleteConfirmPromptContextType = {
