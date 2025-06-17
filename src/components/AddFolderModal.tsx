@@ -4,6 +4,7 @@ import axiosBase from "@/axios/axios";
 import { useState, type FormEvent } from "react";
 import { useProjetoContext } from "@/contexts/projectContext";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouterState } from "@tanstack/react-router";
 
 export default function AddFolderModal({ folderSection, close }: { folderSection: "documentos" | "financeiro" | null; close: () => void }) {
     const [formData, setFormData] = useState<{ nome: string; descricao: string }>({
@@ -23,6 +24,8 @@ export default function AddFolderModal({ folderSection, close }: { folderSection
 
     const { faseSelecionada } = useProjetoContext();
 
+    const state = useRouterState();
+
     const queryClient = useQueryClient();
 
     async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
@@ -31,13 +34,20 @@ export default function AddFolderModal({ folderSection, close }: { folderSection
         setWaitingRequest(true);
 
         await axiosBase
-            .post("/pasta", { ...formData, fase: faseSelecionada?._id, projeto: faseSelecionada?.projeto, secao: folderSection })
+            .post("/pasta", {
+                ...formData,
+                fase: faseSelecionada?._id,
+                projeto: faseSelecionada?.projeto,
+                secao: state.location.searchStr ? null : folderSection,
+                pastaPai: state.location.searchStr ? state.location.search.folderId : null,
+            })
             .then(async () => {
                 //TODO: dar feedback do request (sucesso, falha, etc)
-                console.log(await queryClient.invalidateQueries({ queryKey: ["projeto"] }));
+                await queryClient.invalidateQueries({ queryKey: ["projeto"] });
             })
             .finally(() => {
                 handleClose();
+                setWaitingRequest(false);
             });
     }
 

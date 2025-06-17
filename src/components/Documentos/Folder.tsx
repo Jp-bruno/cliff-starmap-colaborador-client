@@ -7,6 +7,7 @@ import type { PastaType } from "@/types";
 import axiosBase from "@/axios/axios";
 import { useQueryClient } from "@tanstack/react-query";
 import EditFolderModal from "../EditFolderModal";
+import { useProjetoContext } from "@/contexts/projectContext";
 
 export default function Folder({ folder }: { folder: PastaType }) {
     const theme = useTheme();
@@ -15,6 +16,7 @@ export default function Folder({ folder }: { folder: PastaType }) {
     const navigate = useNavigate();
     const { open: openDeletePrompt } = useDeleteConfirmPrompt();
     const queryClient = useQueryClient();
+    const { projeto } = useProjetoContext();
     const [editFolderModalState, setEditFolderModalState] = useState<PastaType | null>(null);
 
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -47,7 +49,7 @@ export default function Folder({ folder }: { folder: PastaType }) {
                                 navigate({
                                     to: `./${folder.slug}`,
                                     search: { folderId: folder._id },
-                                    mask: { to: `./${folder.slug}` },
+                                    mask: { to: `/$slug/${folder.secao}`, params: { slug: projeto!.slug } },
                                 })
                             }
                             sx={{
@@ -85,7 +87,7 @@ export default function Folder({ folder }: { folder: PastaType }) {
                                         message: "Tem certeza que deseja excluir esta pasta?",
                                         extraMessage: "Aviso: todos os arquivos desta pasta também serão excluídos",
                                         cb: () => handleDeleteFolder(),
-                                        resourceType: "pasta"
+                                        resourceType: "pasta",
                                     });
                                 }}
                             >
