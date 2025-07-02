@@ -41,7 +41,6 @@ export default function AddFaseModal({ isOpen, close }: { isOpen: boolean; close
             })
             .finally(async () => {
                 refetch();
-                console.log("aqui");
                 handleClose();
             });
     }

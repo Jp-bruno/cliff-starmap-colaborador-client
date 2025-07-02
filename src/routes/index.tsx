@@ -54,7 +54,7 @@ function App() {
                 })
                 .catch((e) => {
                     window.alert(e.response.data.message);
-                    setLoadingAuth(false)
+                    setLoadingAuth(false);
                 });
 
             return;
@@ -66,7 +66,7 @@ function App() {
                 setForgotPw(false);
             }
 
-            setLoadingAuth(false)
+            setLoadingAuth(false);
         });
     }
 
