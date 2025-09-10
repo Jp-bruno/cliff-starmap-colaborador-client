@@ -1,10 +1,22 @@
-import { Box, Divider, Modal, Paper, Typography } from "@mui/material";
+import { Box, Divider, Modal, Paper, Typography, type SxProps } from "@mui/material";
 import type { ReactNode } from "react";
 
-export default function BaseModal({ isOpen, close, title, children }: { isOpen: boolean; close: () => void; title: string; children: ReactNode }) {
+export default function BaseModal({
+    isOpen,
+    close,
+    title,
+    children,
+    extraStyle,
+}: {
+    isOpen: boolean;
+    close: () => void;
+    title: string;
+    children: ReactNode;
+    extraStyle?: SxProps;
+}) {
     return (
         <Modal open={isOpen} onClose={close} sx={{ display: "grid", placeItems: "center" }}>
-            <Paper sx={{maxWidth: "700px"}}>
+            <Paper sx={{ ...extraStyle }}>
                 <Typography textAlign="center" sx={{ p: 1 }}>
                     {title}
                 </Typography>

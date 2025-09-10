@@ -31,15 +31,16 @@ export default function CompromissoItem({
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "space-between",
+                            alignItems: "flex-start",
                         }}
                         onClick={() => setVisualizerState({ titulo, descricao, data: `${dia} de ${mes} de ${ano}` })}
                     >
                         <Typography sx={{ fontSize: "0.8rem", width: "100%", textWrap: "wrap", color: theme.palette.common.compromissoFontColor }}>
                             {titulo}
                         </Typography>
-                        <Box sx={{ display: "flex", gap: 1 }}>
-                            <Typography sx={{ fontSize: "1.9rem", color: theme.palette.primary.main, fontWeight: 600 }}>{dia}</Typography>
-                            <Typography sx={{ fontSize: "1.9rem", color: theme.palette.primary.main }}>{mes}</Typography>
+                        <Box sx={{ display: "flex", gap: 1, alignItems: "baseline" }}>
+                            <Typography sx={{ fontSize: "1rem", color: theme.palette.primary.main, fontWeight: 600 }}>{dia}</Typography>
+                            <Typography sx={{ fontSize: "1.2rem", color: theme.palette.primary.main }}>{mes}</Typography>
                         </Box>
                     </CardActionArea>
                 </Tooltip>
