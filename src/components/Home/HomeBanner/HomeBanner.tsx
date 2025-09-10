@@ -13,7 +13,7 @@ const StyledBox = styled(Box)`
         width: 100%;
         border-radius: 10px;
         aspect-ratio: 2/1;
-        object-fit: cover;
+        object-fit: contain;
     }
 `;
 
